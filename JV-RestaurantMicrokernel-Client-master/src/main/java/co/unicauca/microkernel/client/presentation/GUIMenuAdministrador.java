@@ -8,13 +8,14 @@ package co.unicauca.microkernel.client.presentation;
 
 import co.unicauca.microkernel.common.entities.User;
 import co.unicauca.microkernel.core.domain.UserRepository;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Usuario
  */
-public class GUIMenuAdministrador extends javax.swing.JFrame {
+public class GUIMenuAdministrador extends JFrame {
 
     UserRepository service;
     /** Creates new form GUIRegistrarUsuario */

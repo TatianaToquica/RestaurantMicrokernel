@@ -54,5 +54,9 @@ public class Factory {
         IComponentRepository result = new ComponentRepository();
         return result;
     }
+    public IDishRepository getDishRepository(){
+        IDishRepository result = new DishRepository();
+        return result;
+    }
 //</editor-fold>
 }

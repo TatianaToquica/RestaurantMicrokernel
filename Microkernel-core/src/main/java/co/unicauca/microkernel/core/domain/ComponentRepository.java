@@ -5,6 +5,7 @@ import co.unicauca.microkernel.common.infra.Utilities;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -81,20 +82,90 @@ public class ComponentRepository implements IComponentRepository{
     
     @Override
     public Component findComponente(int prmcompID) {
-        //TODO:Implementar
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Component varObjComp = null;
+        try {
+            this.connect();
+            String sql = "SELECT * FROM Component WHERE compID=?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, prmcompID);
+            ResultSet res = pstmt.executeQuery();
+            if (res.next()) {
+                varObjComp = new Component();
+                varObjComp.setCompId(res.getInt("compID"));
+                varObjComp.setCompName(res.getString("compName"));
+                varObjComp.setCompType(res.getString("compType"));
+                varObjComp.setCompPrice(res.getInt("compPrice"));
+            }
+            pstmt.close();
+            this.disconnect();
+        } catch (SQLException ex) {
+            Logger.getLogger(ComponentRepository.class.getName()).log(Level.SEVERE, "Error al buscar un componente en la base de datos", ex);
+        }
+        return varObjComp;
     }
     
     @Override
     public String deleteComponente(int prmcompID) {
-        //TODO:Implementar
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Component prueba=new Component();
+        prueba=findComponente(prmcompID);        
+        if (prueba!=null) {
+            System.out.println("EXISTE EL ELEMENTO");
+        } else {
+            System.out.println("NO EXISTE EL ELEMENTO");
+            return "FALLO";
+        }
+        try {
+            //primero se establece la conexion
+            this.connect(); //validar cuando la conexion no sea exitosa
+            //se estructura la sentencia sql en un string
+            String sql = "DELETE FROM Component WHERE compId = (?)";
+            //pstmt mantendra la solicitud sobre la base de datos, se asignam sus columnas
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            //se compara el id, OJO Ddebe cumplir estrictamente el orden y el tipo de dato(de las tablas)
+            pstmt.setInt(1, prmcompID);
+
+            pstmt.executeUpdate();
+            //se cierra
+            pstmt.close();
+            //se termina la coneccion
+            this.disconnect();
+        } catch (SQLException ex) {
+            Logger.getLogger(ComponentRepository.class.getName()).log(Level.SEVERE, "Error al eliminar el componente de la BD", ex);
+        }
+        return "" + prmcompID;
     }
     
     @Override
     public String updateComponente(int prmcompID) {
-        //TODO:Implementar
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Component comp=new Component();
+        comp=findComponente(prmcompID);        
+        if (comp!=null) {
+            System.out.println("EXISTE EL ELEMENTO");
+        } else {
+            System.out.println("NO EXISTE EL ELEMENTO");
+            return "FALLO";
+        }
+        try{
+            this.connect();
+            //String sql = "UPDATE platoespecial set "+atributo+" = "+valor+" WHERE PESP_NOMBRE = "+clave;
+            String sql = "UPDATE Component SET compID = ?, compName = ?, compType = ?, compPrice = ?, compImage = ? WHERE compID = ?";
+            System.out.println("SENTENCIA SQL UPDATE Component: "+sql);
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, comp.getCompId());
+            pstmt.setString(2, comp.getCompName());
+            pstmt.setString(3, comp.getCompType());             
+            pstmt.setInt(4, comp.getCompPrice());
+            pstmt.setBytes(5, comp.getCompImage());  
+            
+            pstmt.executeUpdate();
+            
+            pstmt.close();
+            this.disconnect();
+        }catch (SQLException ex) {
+            Logger.getLogger(ComponentRepository.class.getName()).log(Level.SEVERE, "Error al actualizar el componente en la BD", ex);
+            return "FALLO";
+        }
+        return comp.getCompName();
     }
     
      @Override

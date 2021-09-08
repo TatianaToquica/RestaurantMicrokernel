@@ -7,6 +7,7 @@ package co.unicauca.microkernel.client.domain;
 
 import co.unicauca.microkernel.client.access.IClienteAccess;
 import co.unicauca.microkernel.common.entities.Component;
+import co.unicauca.microkernel.common.entities.Dish;
 
 /**
  *
@@ -21,5 +22,11 @@ public class ClienteService {
     
     public String createComponente(Component component) throws Exception{
         return this.service.createComponente(component);
+    }
+    public String createDish(Dish plate) throws Exception{
+        return this.service.createDish(plate);
+    }
+    public String deleteComponente(int prmcompID) throws Exception{
+         return this.service.deleteComponente(prmcompID);
     }
 }

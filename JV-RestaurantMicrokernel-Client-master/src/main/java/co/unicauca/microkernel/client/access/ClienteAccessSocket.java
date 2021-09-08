@@ -7,6 +7,7 @@ package co.unicauca.microkernel.client.access;
 
 import co.unicauca.microkernel.client.infra.ServidorSocket;
 import co.unicauca.microkernel.common.entities.Component;
+import co.unicauca.microkernel.common.entities.Dish;
 import co.unicauca.microkernel.common.infra.JsonError;
 import co.unicauca.microkernel.common.infra.Protocol;
 import java.io.IOException;
@@ -110,5 +111,61 @@ public class ClienteAccessSocket implements IClienteAccess {
         System.out.println("json: "+requestJson);
         return requestJson;
     }
+    public String createDish(Dish plate) throws Exception {
+        String jsonResponse = null;
+        //devuelve un string en formato Json que lo que se enviara
+        String requestJson = addDish(plate);
+        if((this.procesarConexion(requestJson).equals("FALLO"))){
+            return null;
+        }
+        return valueOf(plate.getDishID());
+    }
+    private String addDish(Dish instancia){
+        Protocol protocol = new Protocol();
+        protocol.setResource("administrador");
+        protocol.setAction("postPlatoEspecial");
+        protocol.addParameter("dishID", String.valueOf(instancia.getDishID()));
+        protocol.addParameter("dishName", String.valueOf(instancia.getDishName()));
+        protocol.addParameter("dishDescription", String.valueOf(instancia.getDishDescription()));
+        protocol.addParameter("dishPrice", String.valueOf(instancia.getDishPrice()));
+        protocol.setBytes(instancia.getDishImage());               
+        
+        Gson gson = new Gson();
+        String requestJson = gson.toJson(protocol);
+        System.out.println("json: "+requestJson);
+        return requestJson;
+    }
+
+    @Override
+    public String updateComponente(int prmcompID) throws Exception {         
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }
+    
+    @Override
+    public String deleteComponente(int prmcompID) throws Exception {
+         var respJson = deleteComponentJson(prmcompID);
+        if(this.procesarConexion(respJson).equals("FALLO")){
+            return "FALLO";
+        }
+        return "" + prmcompID;
+    }
+    private String deleteComponentJson(int prmcompID){
+        var protocol = new Protocol();
+        protocol.setResource("administrador");
+        protocol.setAction("deleteComponent");
+        protocol.addParameter("compId", ""+prmcompID);
+        
+        var gson = new Gson();
+        var requestJson = gson.toJson(protocol);
+        out.println("json: "+requestJson);
+        
+        return requestJson;
+    }
+
+    @Override
+    public Component findComponente(int prmcompID) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 
 }

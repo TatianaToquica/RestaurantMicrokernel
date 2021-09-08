@@ -23,4 +23,16 @@ public class ComponentService {
         //hacer validaciones aqui
         return repository.createComponente(prmObjComponente);
     }
+    public Component findComponente(int prmcompID){
+        //hacer validaciones aqui
+        return repository.findComponente(prmcompID);
+    }
+    public String deleteComponente(int prmcompID) {
+        //hacer validaciones aqui
+        return repository.deleteComponente(prmcompID);
+    }
+    public String updateComponente(int prmcompID){
+        //hacer validaciones aqui
+        return repository.updateComponente(prmcompID);
+    }
 }

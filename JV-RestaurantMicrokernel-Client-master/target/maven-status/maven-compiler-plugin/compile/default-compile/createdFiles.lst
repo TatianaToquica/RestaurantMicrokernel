@@ -25,7 +25,6 @@ co\unicauca\microkernel\client\presentation\GUIRegistrarUsuario$1.class
 co\unicauca\microkernel\client\presentation\GUIAgregarComponentes.class
 co\unicauca\microkernel\client\presentation\GUIListadoComponentes.class
 co\unicauca\microkernel\client\presentation\GUISelectorTipoUser$1.class
-co\unicauca\microkernel\client\presentation\GUILoguin$3.class
 co\unicauca\microkernel\client\presentation\GUIMenuAdministrador$3.class
 co\unicauca\microkernel\client\presentation\test.class
 co\unicauca\microkernel\client\presentation\GUIMenuClient$1.class

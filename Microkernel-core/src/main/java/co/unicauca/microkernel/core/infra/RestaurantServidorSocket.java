@@ -12,7 +12,9 @@ import co.unicauca.microkernel.common.infra.Protocol;
 import co.unicauca.microkernel.common.infra.Utilities;
 import co.unicauca.microkernel.core.domain.Factory;
 import co.unicauca.microkernel.core.domain.IComponentRepository;
+import co.unicauca.microkernel.core.domain.IDishRepository;
 import co.unicauca.microkernel.core.services.ComponentService;
+import co.unicauca.microkernel.core.services.DishService;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.ServerSocket;
@@ -57,11 +59,14 @@ public class RestaurantServidorSocket implements Runnable{
     private static final int PORT = Integer.parseInt(Utilities.loadProperty("server.port"));
     
     private ComponentService serviceComponent;
+    private DishService serviceDish;
     
     public RestaurantServidorSocket() {
         //inyeccion de dependencias par hacer la inyeccion
         IComponentRepository componentRepo = Factory.getInstance().getComponentRepository();
         serviceComponent = new ComponentService(componentRepo);
+        IDishRepository dishRepo = Factory.getInstance().getDishRepository();
+        serviceDish = new DishService(dishRepo);
         //codificar plato, restaurante...
     }
     /**
@@ -163,11 +168,21 @@ public class RestaurantServidorSocket implements Runnable{
             case "administrador":
                 //funciona exactamente igual platoD postPlatoDia
                 if (protocolRequest.getAction().equals("postComponente")) {
+                    administradorRegistrarComponente(protocolRequest);
+                }
+                if (protocolRequest.getAction().equals("postPlatoEspecial")) {
                     administradorRegistrarPlatoEspecial(protocolRequest);
                 }
+                if (protocolRequest.getAction().equals("updateComponente")) {
+                    administradorUpdateComponent(protocolRequest);
+                }
+                if (protocolRequest.getAction().equals("deleteComponent")) {
+                    administradorDeleteComponent(protocolRequest);
+                }
+            //case "cliente":
         }
     }
-    private void administradorRegistrarPlatoEspecial(Protocol protocolRequest) {
+    private void administradorRegistrarComponente(Protocol protocolRequest) {
         //crea la instancia
         Component comp = new Component();
         //se asignan los atributos de la instancia, segun los valores de los parametros
@@ -184,6 +199,52 @@ public class RestaurantServidorSocket implements Runnable{
         response = serviceComponent.createComponente(comp);
         output.println(response);
     }
+    private void administradorUpdateComponent(Protocol protocol){
+        Component comp = new Component();
+        comp.setCompId(Integer.parseInt(protocol.getParameters().get(0).getValue()));        
+        comp.setCompName(protocol.getParameters().get(1).getValue());
+        comp.setCompType(protocol.getParameters().get(2).getValue());
+        comp.setCompPrice(Integer.parseInt(protocol.getParameters().get(3).getValue()));
+        comp.setCompImage(protocol.getBytes());
+        
+        String response = null;
+        response = serviceComponent.updateComponente(comp.getCompId());
+        output.println(response);
+        Logger.getLogger(RestaurantServidorSocket.class.getName()).log(Level.SEVERE, "response: "+response);
+    }
+    private void administradorDeleteComponent(Protocol protocolRequest) {
+        //creo el id de la racion
+        int compId;
+        //se asignan los atributos de la instancia, segun los valores de los parametros
+        //el orden debe ser exacto
+        compId = (Integer.parseInt(protocolRequest.getParameters().get(0).getValue()));
+        //hacer validacion para esta, es decir sobre el parseo del dato
+        String response = null;
+        //el servicio comunicara con la base de datos,
+        //se pasa el plato creado, y servicio llamara al repositorio
+        response = serviceComponent.deleteComponente(compId);
+        output.println(response);
+    }
+    private void administradorRegistrarPlatoEspecial(Protocol protocolRequest) {
+        //crea la instancia
+        Dish plate=new Dish();
+        //se asignan los atributos de la instancia, segun los valores de los parametros
+        //el orden debe ser exacto
+        plate.setDishID(Integer.parseInt(protocolRequest.getParameters().get(0).getValue()));
+        plate.setDishName(protocolRequest.getParameters().get(1).getValue());
+        plate.setDishDescription(protocolRequest.getParameters().get(2).getValue());
+        plate.setDishPrice(Integer.parseInt(protocolRequest.getParameters().get(3).getValue()));
+        plate.setDishImage(protocolRequest.getBytes());
+        //hacer validacion para esta, es decir sobre el parseo del dato
+        String response;
+        //el servicio comunicara con la base de datos,
+        //se pasa el plato creado, y servicio llamara al repositorio
+        
+        response = serviceDish.createDish(plate);
+        output.println(response);
+        
+    }
+
     /**
      * Genera un ErrorJson genérico en caso de fallar alguna solicitud no
      * controlada.
@@ -213,8 +274,6 @@ public class RestaurantServidorSocket implements Runnable{
         output.close();
         input.close();
         socket.close();
-    }
-
-    
+    }   
     
 }
