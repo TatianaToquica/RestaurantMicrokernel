@@ -1,5 +1,6 @@
 
 package co.unicauca.microkernel.plugins.QuietaMargarita;
+import co.unicauca.microkernel.common.entities.Component;
 import co.unicauca.microkernel.common.entities.Delivery;
 import co.unicauca.microkernel.common.interfaces.IDeliveryPlugin;
 /**
@@ -15,9 +16,9 @@ public class QuietaMargaritaDeliveryPlugin implements IDeliveryPlugin{
      */
     public double calculateCost(Delivery delivery) {
 
-        Dish plato = delivery.getPlato();
-        double price = plato.getPrice();
-        double distance = delivery.getDistance();
+        Component comp = delivery.getComponente();
+        double price = comp.getCompPrice();
+        double distance = delivery.getDelDistance();
         double valorFijo = 2000;
         double cost;
 

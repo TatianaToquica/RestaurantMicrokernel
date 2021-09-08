@@ -1,6 +1,10 @@
 
 package co.unicauca.microkernel.plugins.TerraInca;
 
+import co.unicauca.microkernel.common.entities.Component;
+import co.unicauca.microkernel.common.entities.Delivery;
+import co.unicauca.microkernel.common.interfaces.IDeliveryPlugin;
+
 /**
  *
  * @author HP
@@ -14,9 +18,9 @@ public class TerraIncaDeliveryPlugin implements IDeliveryPlugin{
      */
     public double calculateCost(Delivery delivery) {
 
-        Dish plato = delivery.getDish;
-        double price = plato.getPrice();
-        double distance = delivery.getDistance();
+        Component comp = delivery.getComponente();
+        double price = comp.getCompPrice();
+        double distance = delivery.getDelDistance();
         double valorFijo = 5000;
         double cost;
 

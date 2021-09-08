@@ -7,16 +7,9 @@
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
-            <groupId>course.microkernel</groupId>
-            <artifactId>Microkernel-common</artifactId>
-            <version>0.1.0</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
             <groupId>co.unicauca</groupId>
-            <artifactId>Restaurante-comunicacion</artifactId>
+            <artifactId>Microkernel-common</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <type>jar</type>
         </dependency>
     </dependencies>
     <properties>

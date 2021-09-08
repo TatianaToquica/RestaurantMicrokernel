@@ -1,8 +1,10 @@
 
 package co.unicauca.microkernel.plugins.LaDeliciosa;
 
+import co.unicauca.microkernel.common.entities.Component;
 import co.unicauca.microkernel.common.entities.Delivery;
 import co.unicauca.microkernel.common.interfaces.IDeliveryPlugin;
+
 
 /**
  *
@@ -17,9 +19,9 @@ public class LaDeliciosaDeliveryPlugin implements IDeliveryPlugin{
      */
     public double calculateCost(Delivery delivery) {
 
-        Dish plato = delivery.getPlato();
-        double price = plato.getPrice();
-        double distance = delivery.getDistance();
+        Component comp = delivery.getComponente();
+        double price = comp.getCompPrice();
+        double distance = delivery.getDelDistance();
         double valorFijo = 4000;
         double cost;
 

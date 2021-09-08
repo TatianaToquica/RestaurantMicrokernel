@@ -17,7 +17,7 @@ public class Delivery {
     /**
      * Instancia del plato
      */
-    private Dish plato;
+    private Component componente;
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
@@ -26,10 +26,10 @@ public class Delivery {
      * @param delDistance Distancia
      * @param plato plato pedido
      */
-    public Delivery(String delCode, int delDistance, Dish plato) {
+    public Delivery(String delCode, int delDistance, Component componente) {
         this.delCode = delCode;
         this.delDistance = delDistance;
-        this.plato= plato;
+        this.componente=componente ;
     }
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters">
@@ -51,8 +51,8 @@ public class Delivery {
      * Obtiene el plato
      * @return objeto Dish
      */
-    public Dish getPlato() {    
-        return plato;
+    public Component getComponente() {    
+        return componente;
     }
 
 //</editor-fold>
@@ -71,13 +71,15 @@ public class Delivery {
     public void setDelDistance(int delDistance) {
         this.delDistance = delDistance;
     }
+
+    public void setComponente(Component componente) {
+        this.componente = componente;
+    }
       /**
      * Modifica el plato 
      * @param plato Nuevo plato pedido
      */
-    public void setPlato(Dish plato) {
-        this.plato = plato;
-    } 
+    
     
 //</editor-fold>
 }

@@ -34,6 +34,7 @@ public class User {
      * Email del usuario
      */
     private String userEmail;
+    
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Constructores">
     /**

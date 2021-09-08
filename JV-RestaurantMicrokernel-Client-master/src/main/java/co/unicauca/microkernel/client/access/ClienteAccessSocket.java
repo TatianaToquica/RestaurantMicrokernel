@@ -97,12 +97,13 @@ public class ClienteAccessSocket implements IClienteAccess {
     
     private String addComponente(Component instancia){
         Protocol protocol = new Protocol();
-        protocol.setResource("comprador");
-        protocol.setAction("agregarPlatoEspecialPedido");
-        protocol.addParameter("plaep_id", String.valueOf(instancia.getCompId()));
-//        protocol.addParameter("ped_id", String.valueOf(instancia.getPedId()));
-//        protocol.addParameter("plae_id", String.valueOf(instancia.getPlaeId()));
-//        protocol.addParameter("cantidad", String.valueOf(instancia.getCantidad()));
+        protocol.setResource("administrador");
+        protocol.setAction("postComponente");
+        protocol.addParameter("compID", String.valueOf(instancia.getCompId()));
+        protocol.addParameter("compName", String.valueOf(instancia.getCompName()));
+        protocol.addParameter("compType", String.valueOf(instancia.getCompType()));
+        protocol.addParameter("compPrice", String.valueOf(instancia.getCompPrice()));
+        protocol.setBytes(instancia.getCompImage());               
         
         Gson gson = new Gson();
         String requestJson = gson.toJson(protocol);
