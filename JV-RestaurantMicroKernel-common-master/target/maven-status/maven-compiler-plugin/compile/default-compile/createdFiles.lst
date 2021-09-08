@@ -1,0 +1,12 @@
+co\unicauca\microkernel\common\entities\Restaurant.class
+co\unicauca\microkernel\common\interfaces\IDeliveryPlugin.class
+co\unicauca\microkernel\common\entities\Component.class
+co\unicauca\microkernel\common\infra\Protocol.class
+co\unicauca\microkernel\common\entities\User.class
+co\unicauca\microkernel\common\entities\SpecialMenu.class
+co\unicauca\microkernel\common\infra\Parameter.class
+co\unicauca\microkernel\common\entities\DayMenu.class
+co\unicauca\microkernel\common\entities\Dish.class
+co\unicauca\microkernel\common\infra\Utilities.class
+co\unicauca\microkernel\common\entities\Delivery.class
+co\unicauca\microkernel\common\infra\JsonError.class

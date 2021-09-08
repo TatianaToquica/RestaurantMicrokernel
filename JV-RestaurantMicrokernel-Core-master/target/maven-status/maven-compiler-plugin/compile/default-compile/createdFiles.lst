@@ -1,0 +1,14 @@
+co\unicauca\microkernel\core\domain\ComponentRepository.class
+co\unicauca\microkernel\core\infra\RestaurantServidorSocket.class
+co\unicauca\microkernel\core\domain\UserRepository.class
+co\unicauca\microkernel\core\domain\IMenuDiaRepository.class
+co\unicauca\microkernel\core\domain\Factory.class
+co\unicauca\microkernel\core\domain\RestaurantRepository.class
+co\unicauca\microkernel\core\domain\IUserRepository.class
+co\unicauca\microkernel\core\plugin\manager\DeliveryPluginManager.class
+co\unicauca\microkernel\core\app\Application.class
+co\unicauca\microkernel\core\domain\IComponentRepository.class
+co\unicauca\microkernel\core\domain\MenuDiaRepository.class
+co\unicauca\microkernel\core\services\ComponentService.class
+co\unicauca\microkernel\core\domain\IRestaurantRepository.class
+co\unicauca\microkernel\core\business\DeliveryService.class
