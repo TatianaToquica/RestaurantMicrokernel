@@ -10,6 +10,7 @@ import co.unicauca.microkernel.common.infra.Utilities;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -78,25 +79,71 @@ public class DishRepository implements IDishRepository{
             Logger.getLogger(ComponentRepository.class.getName()).log(Level.SEVERE, "Error al insertar el ObjDish", ex);
         }
         return Integer.toString(prmObjPlato.getDishID());
+    }  
+
+    @Override
+    public Dish findDish(int prmplatoID) {
+        Dish varObjPlate = null;
+        try {
+            this.connect();
+            String sql = "SELECT * FROM Dish WHERE dishID=?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, prmplatoID);
+            ResultSet res = pstmt.executeQuery();
+            if (res.next()) {
+                varObjPlate = new Dish();
+                varObjPlate.setDishID(res.getInt("dishID"));
+                varObjPlate.setDishName(res.getString("dishName"));
+                varObjPlate.setDishDescription(res.getString("dishDescription"));
+                varObjPlate.setDishPrice(res.getInt("dishPrice"));
+            }
+            pstmt.close();
+            this.disconnect();
+        } catch (SQLException ex) {
+            Logger.getLogger(DishRepository.class.getName()).log(Level.SEVERE, "Error al buscar un plato en la base de datos", ex);
+        }
+        return varObjPlate;
     }
 
     @Override
-    public Dish findComponente(int prmplatoID) {
+    public List<Dish> findAllDish() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Dish> findAllComponentes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String deleteDish(int prmplatoID) {
+        Dish plate=new Dish();
+        plate=findDish(prmplatoID);        
+        if (plate!=null) {
+            System.out.println("EXISTE EL ELEMENTO");
+        } else {
+            System.out.println("NO EXISTE EL ELEMENTO");
+            return "FALLO";
+        }
+        try {
+            //primero se establece la conexion
+            this.connect(); //validar cuando la conexion no sea exitosa
+            //se estructura la sentencia sql en un string
+            String sql = "DELETE FROM Dish WHERE dishId = (?)";
+            //pstmt mantendra la solicitud sobre la base de datos, se asignam sus columnas
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            //se compara el id, OJO Ddebe cumplir estrictamente el orden y el tipo de dato(de las tablas)
+            pstmt.setInt(1, prmplatoID);
+            //se ejecuta la sentencia sql
+            pstmt.executeUpdate();
+            //se cierra
+            pstmt.close();
+            //se termina la coneccion
+            this.disconnect();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(RestaurantRepository.class.getName()).log(Level.SEVERE, "Error al eliminar el plato", ex);
+        }
+        return "" + prmplatoID;
     }
 
     @Override
-    public String deleteComponente(int prmplatoID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String updateComponente(int prmplatoID) {
+    public String updateDish(int prmplatoID) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

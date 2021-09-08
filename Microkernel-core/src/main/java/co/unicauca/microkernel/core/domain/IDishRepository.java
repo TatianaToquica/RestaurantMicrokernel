@@ -24,17 +24,17 @@ public interface IDishRepository {
      * @param prmplatoID identificador del plato a buscar
      * @return Objeto de tipo Dish
      */
-    public Dish findComponente(int prmplatoID);
+    public Dish findDish(int prmplatoID);
     /**
      * Encuentra todos los platos    
      * @return Lista de platos especiales
      */
-    public List<Dish> findAllComponentes();
+    public List<Dish> findAllDish();
     /**
      * 
      * @param prmplatoID
      * @return 
      */
-    public String deleteComponente(int prmplatoID);
-    public String updateComponente(int prmplatoID);
+    public String deleteDish(int prmplatoID);
+    public String updateDish(int prmplatoID);
 }

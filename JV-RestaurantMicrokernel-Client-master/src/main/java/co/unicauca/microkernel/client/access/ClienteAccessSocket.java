@@ -166,6 +166,33 @@ public class ClienteAccessSocket implements IClienteAccess {
     public Component findComponente(int prmcompID) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public String deleteDish(int prmPlateID) throws Exception {
+        var respJson = deletePlatoEspecialJson(prmPlateID);
+        if(this.procesarConexion(respJson).equals("FALLO")){
+            return "FALLO";
+        }
+        return "" + prmPlateID;
+    }
+     private String deletePlatoEspecialJson(int prmPlateID){
+        var protocol = new Protocol();
+        protocol.setResource("administrador");
+        protocol.setAction("deleteDish");
+        protocol.addParameter("dishId", ""+prmPlateID);
+        
+        var gson = new Gson();
+        var requestJson = gson.toJson(protocol);
+        out.println("json: "+requestJson);
+
+        return requestJson;
+
+    }
+
+    @Override
+    public Dish findDish(int prmPlateID) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 
 }

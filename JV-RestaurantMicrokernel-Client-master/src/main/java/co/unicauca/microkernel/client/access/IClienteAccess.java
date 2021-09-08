@@ -16,7 +16,9 @@ import co.unicauca.microkernel.common.entities.Dish;
 public interface IClienteAccess {
     public String createComponente(Component component) throws Exception;
     public String createDish(Dish plate) throws Exception;
+    public String deleteDish(int prmPlateID) throws Exception;
     public String updateComponente(int prmcompID)throws Exception;
     public String deleteComponente(int prmcompID) throws Exception;
     public Component findComponente(int prmcompID)throws Exception;
+    public Dish findDish(int prmPlateID)throws Exception;
 }

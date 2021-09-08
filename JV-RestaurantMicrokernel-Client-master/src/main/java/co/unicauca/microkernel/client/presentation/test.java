@@ -26,17 +26,29 @@ public class test {
     public static void main(String[] args) {
         String re = "";
         try {
+              /**
+            Component comp = new Component(1, "frijoles", 2000, "principio", Utilities.convertirFoto("C:\\Users\\HP\\Pictures\\espuma\\2.png"));
+            re = servicioRestaurante.createComponente(comp);
+            System.out.println(re); */
                 /**
             Component comp = new Component(2, "lentejas", 1000, "principio", Utilities.convertirFoto("C:\\Users\\HP\\Pictures\\espuma\\2.png"));
             re = servicioRestaurante.createComponente(comp);
             System.out.println(re); */
             /**
-            Dish plate =new Dish(1, "arroz chino", "muy rico" ,10000 , Utilities.convertirFoto("C:\\Users\\HP\\Pictures\\espuma\\2.png"));
+            Dish plate =new Dish(1, "arroz chino", "con raices, camarones y pollo" ,10000 , Utilities.convertirFoto("C:\\Users\\HP\\Pictures\\espuma\\2.png"));
+            re = servicioRestaurante.createDish(plate);
+            System.out.println(re); */
+            /** 
+            Dish plate =new Dish(2, "sopa de mariscos", "con muchos mariscos" ,80000 , Utilities.convertirFoto("C:\\Users\\HP\\Pictures\\espuma\\2.png"));
             re = servicioRestaurante.createDish(plate);
             System.out.println(re); */
             
+            /** 
             re = servicioRestaurante.deleteComponente(1);
-            System.out.println(re); 
+            System.out.println(re);*/          
+             /**
+            re = servicioRestaurante.deleteDish(1);
+            System.out.println(re);  */  
         } catch (Exception e) {
         }
        

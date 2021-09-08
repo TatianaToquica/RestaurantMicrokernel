@@ -23,4 +23,11 @@ public class DishService {
         //hacer validaciones aqui
         return repository.createDish(prmObjPlate);
     }
+     public String deleteDish(int prmplatoID){
+        //hacer validaciones aqui
+        return repository.deleteDish(prmplatoID);
+    }
+     public Dish findDish(int prmplatoID){
+         return repository.findDish(prmplatoID);
+     }
 }

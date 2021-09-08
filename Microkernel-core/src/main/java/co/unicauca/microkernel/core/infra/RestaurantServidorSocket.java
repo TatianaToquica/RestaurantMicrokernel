@@ -179,6 +179,9 @@ public class RestaurantServidorSocket implements Runnable{
                 if (protocolRequest.getAction().equals("deleteComponent")) {
                     administradorDeleteComponent(protocolRequest);
                 }
+                if (protocolRequest.getAction().equals("deleteDish")) {
+                    administradorDeleteDish(protocolRequest);
+                }
             //case "cliente":
         }
     }
@@ -243,6 +246,18 @@ public class RestaurantServidorSocket implements Runnable{
         response = serviceDish.createDish(plate);
         output.println(response);
         
+    }
+    private void administradorDeleteDish(Protocol protocolRequest) {
+        //creo el id de la racion
+        int dishId;
+        //se asignan los atributos de la instancia, segun los valores de los parametros
+        //el orden debe ser exacto
+        dishId = (Integer.parseInt(protocolRequest.getParameters().get(0).getValue()));
+        String response = null;
+        //el servicio comunicara con la base de datos,
+        //se pasa el plato creado, y servicio llamara al repositorio
+        response = serviceDish.deleteDish(dishId);
+        output.println(response);
     }
 
     /**

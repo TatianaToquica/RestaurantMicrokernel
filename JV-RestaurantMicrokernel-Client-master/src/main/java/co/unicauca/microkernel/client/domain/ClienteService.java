@@ -29,4 +29,10 @@ public class ClienteService {
     public String deleteComponente(int prmcompID) throws Exception{
          return this.service.deleteComponente(prmcompID);
     }
+    public String deleteDish(int prmPlateID) throws Exception{
+        return this.service.deleteDish(prmPlateID);
+    }
+    public Dish findDish(int prmPlateID)throws Exception{
+        return this.service.findDish(prmPlateID);
+    }
 }
