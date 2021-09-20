@@ -6,9 +6,19 @@
 
 package co.unicauca.microkernel.client.presentation;
 
+import co.unicauca.microkernel.client.access.Factory;
+import co.unicauca.microkernel.client.access.IClienteAccess;
+import co.unicauca.microkernel.client.domain.ClienteService;
 import co.unicauca.microkernel.common.entities.User;
 import co.unicauca.microkernel.core.domain.UserRepository;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -16,13 +26,20 @@ import javax.swing.JOptionPane;
  */
 public class GUIRegistrarUsuario extends javax.swing.JFrame {
 
-    UserRepository service;
+    private IClienteAccess service;
+    private ClienteService serviceRest;
+    private User usuario;
+    
+    //FondoPanel fondo =new FondoPanel();
     /** Creates new form GUIRegistrarUsuario */
     public GUIRegistrarUsuario() {
-        initComponents();
-        this.service = service;
-        setLocationRelativeTo(null);
-        setSize(510, 400);
+        service= Factory.getInstance().getClienteService();
+        serviceRest= new ClienteService(service);
+        this.usuario=new User();
+        //this.setContentPane(fondo);
+        initComponents();         
+        //setLocationRelativeTo(null);
+        //setSize(328, 399);
     }
 
     /** This method is called from within the constructor to
@@ -48,11 +65,14 @@ public class GUIRegistrarUsuario extends javax.swing.JFrame {
         txtUserMobile = new javax.swing.JTextField();
         txtUserAddress = new javax.swing.JTextField();
         txtUserPassword = new javax.swing.JPasswordField();
-        jLabel6 = new javax.swing.JLabel();
         btnRegistarUsuario = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        cbx_tipoUser = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(51, 51, 255));
+        setForeground(new java.awt.Color(153, 0, 153));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblUserName.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -91,37 +111,59 @@ public class GUIRegistrarUsuario extends javax.swing.JFrame {
         getContentPane().add(txtUserAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 119, -1));
         getContentPane().add(txtUserPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, 119, -1));
 
-        jLabel6.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Registro de Usuario");
-        jLabel6.setDoubleBuffered(true);
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, -1, -1));
-
         btnRegistarUsuario.setText("Registrarse");
         btnRegistarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistarUsuarioActionPerformed(evt);
             }
         });
-        getContentPane().add(btnRegistarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 300, -1, -1));
+        getContentPane().add(btnRegistarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, -1, -1));
 
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/img_FondoRegistroUsuario.jpg"))); // NOI18N
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 340, 350));
+        jLabel6.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Registro de Usuario");
+        jLabel6.setDoubleBuffered(true);
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
+
+        cbx_tipoUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "administrador", "cliente" }));
+        getContentPane().add(cbx_tipoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, 110, 30));
+
+        jLabel7.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel7.setText("Tipo Usuario:*");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistarUsuarioActionPerformed
-        co.unicauca.microkernel.common.entities.User  Usuario = new User(txtUserLoginName.getText(),txtUserPassword.getText(),txtUserName.getText(),txtUserLastName.getText(),txtUserAddress.getText(),txtUserMobile.getText(),txtUserEmail.getText());
-        //Aqui vendria el analizar si el usuario existe en el sistema
-        User varUser = service.invalidateUser(txtUserLoginName.getText());
-        if (varUser!=null) {//El usuario fue encontrado
-           JOptionPane.showMessageDialog(null, "El Login ya existe");
-        } else {           
-            String usuarioCreado=service.createUser(Usuario);
-            JOptionPane.showMessageDialog(null, "Ha sido creado el usuario ", usuarioCreado, HEIGHT);//revisar
+        usuario.setUserLoginName(txtUserLoginName.getText());
+        usuario.setUserPassword(txtUserPassword.getText());
+        usuario.setUserName(txtUserName.getText());
+        usuario.setUserLastName(txtUserLastName.getText());
+        usuario.setUserAddres(txtUserAddress.getText());
+        usuario.setUserMobile(txtUserMobile.getText());
+        usuario.setUserEmail(txtUserEmail.getText());
+        usuario.setUserType(cbx_tipoUser.getSelectedItem().toString());
+        
+            String varLogin;
+            String usuarioCreado;
+        try {
+            //se verifica si el login ya existe en el sistema
+            varLogin = serviceRest.findUser(txtUserLoginName.getText());
+                        
+            if(varLogin!="Fallo"){//si el login se encuentra en el sistema                
+                JOptionPane.showMessageDialog(null, "El Login ya existe, cambielo para que pueda registrarse");                                
+            }else{
+                //se manda a crear el usuario
+                usuarioCreado = serviceRest.createUser(usuario);
+                if (usuarioCreado!= "Fallo crear usuario") {//Si no se presento inconveniente en su creación
+                 JOptionPane.showMessageDialog(null, "Ha sido creado el usuario ");           
+                } 
+            }
+                    
+        
+        } catch (Exception ex) {
+            Logger.getLogger(GUIRegistrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnRegistarUsuarioActionPerformed
 
@@ -162,12 +204,13 @@ public class GUIRegistrarUsuario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistarUsuario;
+    private javax.swing.JComboBox<String> cbx_tipoUser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel lblUserEmail;
     private javax.swing.JLabel lblUserLastName;
     private javax.swing.JLabel lblUserName;
@@ -179,5 +222,13 @@ public class GUIRegistrarUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField txtUserName;
     private javax.swing.JPasswordField txtUserPassword;
     // End of variables declaration//GEN-END:variables
-
+    class FondoPanel extends JPanel{
+        private Image imagen;
+        public void paint(Graphics g){
+            imagen = new ImageIcon(getClass().getResource("/imagen/img_FondoRegistroUsuario.jpg")).getImage();
+            g.drawImage(imagen,0, 0, getWidth(), getHeight(),this);
+            setOpaque(false);
+            super.paint(g);
+        }
+    }
 }

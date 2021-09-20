@@ -8,22 +8,29 @@ import co.unicauca.microkernel.common.entities.User;
 public interface IUserRepository {
     /**
      * Metodo encargado de buscar un usuario
-     * @param prmUserName userName a buscar
-     * @param prmUserPassword userPassword a buscar
-     * @return objeto de tipo User
+     * @param prmUserLoginName Login a buscar     * 
+     * @return cadena de texto que contiene el UserLoginName de prmObjUser
      */
-    public User findUser(String prmUserName, String prmUserPassword);
+    public String findUser(String prmUserLoginName);
     /**
      * Metodo para crear un usuario 
      * @param prmObjUser Objeto usuario a crear
-     * @return cadena de texto que contiene el userName de prmObjUser
+     * @return cadena de texto que contiene el UserLoginName de prmObjUser
      */
     public String createUser(User prmObjUser);   
     /**
-     * Metodo encargado de buscar un usuario
-     * @param prmUserName userName a buscar     
-     * @return objeto de tipo User
+     * Metodo encargado de validar un usuario y su contraseña
+     * @param prmUserLoginName Login a buscar     
+     * @param prmUserPassword password a buscar    
+     * @return cadena de texto que contiene el UserLoginName de prmObjUser
      */
-    public User invalidateUser(String prmUserName);
+    public String validateUser(String prmUserLoginName, String prmUserPassword);
+    /**
+     * Metodo encargado de validar un usuario y su contraseña
+     * @param prmUserLoginName Login a buscar     
+     * @param prmUserType password a buscar    
+     * @return cadena de texto que contiene el UserType de prmObjUser
+     */
+    public String validateTypeUser(String prmUserLoginName, String prmUserType);    
     
 }

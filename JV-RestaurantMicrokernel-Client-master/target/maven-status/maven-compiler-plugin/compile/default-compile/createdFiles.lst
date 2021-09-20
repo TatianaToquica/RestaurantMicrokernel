@@ -7,6 +7,7 @@ co\unicauca\microkernel\client\presentation\GUIMenuClient.class
 co\unicauca\microkernel\client\access\Factory.class
 co\unicauca\microkernel\client\presentation\GUIMenuAdministrador.class
 co\unicauca\microkernel\client\presentation\GUILoguin$1.class
+co\unicauca\microkernel\client\presentation\GUIMenuClient$2.class
 co\unicauca\microkernel\client\presentation\GUIRegistrarUsuario$2.class
 co\unicauca\microkernel\client\access\Gson.class
 co\unicauca\microkernel\client\presentation\GUIListadoComponentes$1.class
@@ -23,8 +24,10 @@ co\unicauca\microkernel\client\presentation\GUIMenuAdministrador$1.class
 co\unicauca\microkernel\client\presentation\GUIListadoComponentes$2.class
 co\unicauca\microkernel\client\presentation\GUIRegistrarUsuario$1.class
 co\unicauca\microkernel\client\presentation\GUIAgregarComponentes.class
+co\unicauca\microkernel\client\presentation\GUIRegistrarUsuario$FondoPanel.class
 co\unicauca\microkernel\client\presentation\GUIListadoComponentes.class
 co\unicauca\microkernel\client\presentation\GUISelectorTipoUser$1.class
+co\unicauca\microkernel\client\presentation\GUILoguin$3.class
 co\unicauca\microkernel\client\presentation\GUIMenuAdministrador$3.class
 co\unicauca\microkernel\client\presentation\test.class
 co\unicauca\microkernel\client\presentation\GUIMenuClient$1.class

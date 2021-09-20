@@ -29,30 +29,24 @@ public class UserRepository implements IUserRepository{
      * @return Objeto de tipo User
      */
     @Override
-    public User findUser(String prmUserLoginName,String prmUserPassword) {
-        User varUser = null;
+    public String findUser(String prmUserLoginName) {
+        String resultado="Fallo";
         this.connect();
         try {
-            String sql = "SELECT * FROM User where userLoginName=? and userPassword=? ";
+            String sql = "SELECT userName FROM User where userLoginName=? ";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, prmUserLoginName);//Preguntar a Luis si debe ir la contraseña
             ResultSet res = pstmt.executeQuery();
             if (res.next()) {
-                varUser = new User();
-                varUser.setUserLoginName(res.getString("userLoginName"));
-                varUser.setUserPassword(res.getString("userPassword"));
-                varUser.setUserName(res.getString("userName"));
-                varUser.setUserLastName(res.getString("userLastName"));
-                varUser.setUserAddres(res.getString("userAddress"));
-                varUser.setUserMobile(res.getString("userMobile"));
-                varUser.setUserEmail(res.getString("userEmail"));
+                resultado=prmUserLoginName;
             }
             pstmt.close();
             this.disconnect();
         } catch (SQLException ex) {
             Logger.getLogger(UserRepository.class.getName()).log(Level.SEVERE, "Error al consultar el Usuario de la base de datos", ex);
+            
         }
-        return varUser;
+        return resultado;
     }
     /**
      * Metodo que sobreescribe la interfaz de repositorio de usuario para encontrar un usuario
@@ -60,30 +54,46 @@ public class UserRepository implements IUserRepository{
      * @return Objeto de tipo User
      */
     @Override
-    public User invalidateUser(String prmUserLoginName) {
-        User varUser = null;
+    public String validateUser(String prmUserLoginName ,String prmUserPassword) {
+        String resultado="Fallo";
         this.connect();
         try {
-            String sql = "SELECT * FROM User where userLoginName=? ";
+            String sql = "SELECT userName FROM User where userLoginName=? and userPassword=?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, prmUserLoginName);
+            pstmt.setString(2, prmUserPassword);
             ResultSet res = pstmt.executeQuery();
             if (res.next()) {
-                varUser = new User();
-                varUser.setUserLoginName(res.getString("userLoginName"));
-                varUser.setUserPassword(res.getString("userPassword"));
-                varUser.setUserName(res.getString("userName"));
-                varUser.setUserLastName(res.getString("userLastName"));
-                varUser.setUserAddres(res.getString("userAddress"));
-                varUser.setUserMobile(res.getString("userMobile"));
-                varUser.setUserEmail(res.getString("userEmail"));
+                resultado=prmUserPassword;
             }
             pstmt.close();
             this.disconnect();
         } catch (SQLException ex) {
             Logger.getLogger(UserRepository.class.getName()).log(Level.SEVERE, "Error al consultar el Usuario de la base de datos", ex);
+            
         }
-        return varUser;
+        return resultado;
+    }
+    @Override
+    public String validateTypeUser(String prmUserLoginName, String prmUserType) {
+        String resultado="Fallo";
+        this.connect();
+        try {
+            String sql = "SELECT userName FROM User where userLoginName=? and userType=?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, prmUserLoginName);
+            pstmt.setString(2, prmUserType);
+            ResultSet res = pstmt.executeQuery();
+            if (res.next()) {
+                resultado=prmUserType;
+            }
+            pstmt.close();
+            this.disconnect();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserRepository.class.getName()).log(Level.SEVERE, "Error al consultar el Usuario de la base de datos", ex);
+            
+        }
+        return resultado;
     }
     /**
      * Metodo que sobreescribe la interfaz de repositorio de usuario y cre un usuario
@@ -92,10 +102,11 @@ public class UserRepository implements IUserRepository{
      */
     @Override
     public String createUser(User prmObjUser) {
+        String resultado="Fallo crear usuario";
         try {
             this.connect();
-            String sql = "INSERT INTO User(userLoginName, userPassword, userName, userLastName, userAddress, userMobile, userEmail) "
-                    + "VALUES (?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO User(userLoginName, userPassword, userName, userLastName, userAddress, userMobile, userEmail ,userType) "
+                    + "VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, prmObjUser.getUserLoginName());
             pstmt.setString(2, prmObjUser.getUserPassword());
@@ -104,13 +115,15 @@ public class UserRepository implements IUserRepository{
             pstmt.setString(5, prmObjUser.getUserAddres());
             pstmt.setString(6, prmObjUser.getUserMobile());
             pstmt.setString(7, prmObjUser.getUserEmail());
+            pstmt.setString(8, prmObjUser.getUserType());
             pstmt.executeUpdate();
+            resultado=prmObjUser.getUserLoginName();
             pstmt.close();
             this.disconnect();
         } catch (SQLException ex) {
-            Logger.getLogger(IUserRepository.class.getName()).log(Level.SEVERE, "Error al insertar el registro", ex);
+            Logger.getLogger(IUserRepository.class.getName()).log(Level.SEVERE, resultado , ex);
         }
-        return prmObjUser.getUserLoginName();
+        return resultado;
     }    
     
 //</editor-fold>
@@ -143,6 +156,6 @@ public class UserRepository implements IUserRepository{
             Logger.getLogger(UserRepository.class.getName()).log(Level.FINER, "Error al cerrar Connection", ex);
         }
     }
-//</editor-fold>   
+//</editor-fold>      
     
 }

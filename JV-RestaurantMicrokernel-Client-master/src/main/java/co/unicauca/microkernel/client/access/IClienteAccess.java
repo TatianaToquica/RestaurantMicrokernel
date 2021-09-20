@@ -7,6 +7,7 @@ package co.unicauca.microkernel.client.access;
 
 import co.unicauca.microkernel.common.entities.Component;
 import co.unicauca.microkernel.common.entities.Dish;
+import co.unicauca.microkernel.common.entities.User;
 
 
 /**
@@ -21,4 +22,8 @@ public interface IClienteAccess {
     public String deleteComponente(int prmcompID) throws Exception;
     public Component findComponente(int prmcompID)throws Exception;
     public Dish findDish(int prmPlateID)throws Exception;
+    public String createUser(User prmObjUser)throws Exception;
+    public String findUser(String prmUserLoginName)throws Exception;
+    public String validateUser(String prmUserLoginName, String prmUserPassword)throws Exception;
+    public String validateTypeUser(String prmUserLoginName, String prmUserType)throws Exception;
 }

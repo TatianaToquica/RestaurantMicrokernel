@@ -1,8 +1,5 @@
 package co.unicauca.microkernel.client.presentation;
 
-import co.unicauca.microkernel.common.entities.User;
-import co.unicauca.microkernel.core.domain.UserRepository;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -10,14 +7,13 @@ import javax.swing.JOptionPane;
  */
 public class GUISelectorTipoUser extends javax.swing.JFrame {
 
-    UserRepository service;
+   
 
     /**
      * Creates new form GUILoguin
      */
     public GUISelectorTipoUser() {
         initComponents();
-        this.service = service;
         setLocationRelativeTo(null);
         //setSize(510, 400);
 
@@ -36,8 +32,9 @@ public class GUISelectorTipoUser extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        btn_Cliente = new javax.swing.JButton();
-        btn_Administrador = new javax.swing.JButton();
+        Btn_Cliente = new javax.swing.JButton();
+        Btn_Administrador = new javax.swing.JButton();
+        Btn_Salir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -80,48 +77,67 @@ public class GUISelectorTipoUser extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 307, -1));
 
-        btn_Cliente.setBackground(new java.awt.Color(0, 0, 255));
-        btn_Cliente.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 18)); // NOI18N
-        btn_Cliente.setForeground(new java.awt.Color(255, 255, 255));
-        btn_Cliente.setText("Cliente");
-        btn_Cliente.setBorder(null);
-        btn_Cliente.addActionListener(new java.awt.event.ActionListener() {
+        Btn_Cliente.setBackground(new java.awt.Color(0, 0, 255));
+        Btn_Cliente.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 18)); // NOI18N
+        Btn_Cliente.setForeground(new java.awt.Color(255, 255, 255));
+        Btn_Cliente.setText("Cliente");
+        Btn_Cliente.setBorder(null);
+        Btn_Cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_ClienteActionPerformed(evt);
+                Btn_ClienteActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 140, 36));
+        jPanel1.add(Btn_Cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 200, 140, 36));
 
-        btn_Administrador.setBackground(new java.awt.Color(0, 0, 255));
-        btn_Administrador.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 18)); // NOI18N
-        btn_Administrador.setForeground(new java.awt.Color(255, 255, 255));
-        btn_Administrador.setText("Administrador");
-        btn_Administrador.setBorder(null);
-        btn_Administrador.addActionListener(new java.awt.event.ActionListener() {
+        Btn_Administrador.setBackground(new java.awt.Color(0, 0, 255));
+        Btn_Administrador.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 18)); // NOI18N
+        Btn_Administrador.setForeground(new java.awt.Color(255, 255, 255));
+        Btn_Administrador.setText("Administrador");
+        Btn_Administrador.setBorder(null);
+        Btn_Administrador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_AdministradorActionPerformed(evt);
+                Btn_AdministradorActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Administrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 140, 36));
+        jPanel1.add(Btn_Administrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 140, 36));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 280));
+        Btn_Salir.setBackground(new java.awt.Color(0, 0, 255));
+        Btn_Salir.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 18)); // NOI18N
+        Btn_Salir.setForeground(new java.awt.Color(255, 255, 255));
+        Btn_Salir.setText("Salir");
+        Btn_Salir.setBorder(null);
+        Btn_Salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_SalirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Btn_Salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, 140, 36));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_ClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ClienteActionPerformed
+    private void Btn_ClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ClienteActionPerformed
         this.setVisible(false);
         GUILoguin ingreso = new GUILoguin();
+        ingreso.TipoUsuario("cliente");
         ingreso.setVisible(true);
         ingreso.pack();
-    }//GEN-LAST:event_btn_ClienteActionPerformed
+    }//GEN-LAST:event_Btn_ClienteActionPerformed
 
-    private void btn_AdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AdministradorActionPerformed
+    private void Btn_AdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_AdministradorActionPerformed
         this.setVisible(false);
         GUILoguin ingreso = new GUILoguin();
+        ingreso.TipoUsuario("administrador");
         ingreso.setVisible(true);
         ingreso.pack();
-    }//GEN-LAST:event_btn_AdministradorActionPerformed
+    }//GEN-LAST:event_Btn_AdministradorActionPerformed
+
+    private void Btn_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_SalirActionPerformed
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_Btn_SalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -160,8 +176,9 @@ public class GUISelectorTipoUser extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_Administrador;
-    private javax.swing.JButton btn_Cliente;
+    private javax.swing.JButton Btn_Administrador;
+    private javax.swing.JButton Btn_Cliente;
+    private javax.swing.JButton Btn_Salir;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;

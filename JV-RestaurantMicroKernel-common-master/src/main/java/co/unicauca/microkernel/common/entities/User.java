@@ -34,7 +34,10 @@ public class User {
      * Email del usuario
      */
     private String userEmail;
-    
+     /**
+     * Tipo de usuario
+     */
+    private String userType;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Constructores">
     /**
@@ -46,8 +49,9 @@ public class User {
      * @param userAddres Dirección de residencia
      * @param userMobile Número de teléfono
      * @param userEmail Correo Electrónico
+     * @param userType tipo de usuario
      */
-    public User (String userLoginName, String userPassword, String userName, String userLastName, String userAddres, String userMobile, String userEmail) {
+    public User (String userLoginName, String userPassword, String userName, String userLastName, String userAddres, String userMobile, String userEmail, String userType) {
         this.userLoginName = userLoginName;
         this.userPassword = userPassword;
         this.userName = userName;
@@ -55,6 +59,7 @@ public class User {
         this.userAddres = userAddres;
         this.userMobile = userMobile;
         this.userEmail = userEmail;
+        this.userType = userType;
     }
     public User (String userLoginName, String userPassword){
         this.userLoginName = userLoginName;
@@ -115,6 +120,14 @@ public class User {
     public String getUserEmail() {
         return userEmail;
     }
+    /**
+     * Obtiene el tipo de usuario
+     * @return String userType
+     */
+    public String getUserType() {
+        return userType;
+    }
+    
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Setters">
     /**
@@ -166,5 +179,12 @@ public class User {
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
-//</editor-fold>
+    /**
+     * Modifica el tipo de usuario
+     * @param userType String nuevo userType
+     */
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+//</editor-fold>    
 }

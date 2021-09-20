@@ -42,15 +42,12 @@ public class GUIMenuAdministrador extends JFrame {
         btn_ListarPlatos = new javax.swing.JButton();
         btn_editarMenuDia = new javax.swing.JButton();
         btn_agregarPlato = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        btnRegistarUsuario1 = new javax.swing.JButton();
+        Btn_CerrarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbl_MenuAdministrador.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
-        lbl_MenuAdministrador.setForeground(new java.awt.Color(255, 255, 255));
         lbl_MenuAdministrador.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_MenuAdministrador.setText("Menu Administrador");
         lbl_MenuAdministrador.setDoubleBuffered(true);
@@ -79,22 +76,15 @@ public class GUIMenuAdministrador extends JFrame {
         btn_agregarPlato.setText("Agregar Plato Especial");
         getContentPane().add(btn_agregarPlato, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 140, -1));
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setForeground(new java.awt.Color(0, 0, 153));
-        jButton1.setText("Cerrar Sesión");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 340, -1, -1));
-
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/img_FondoRegistroUsuario.jpg"))); // NOI18N
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 340, 370));
-
-        btnRegistarUsuario1.setText("Agregar Componente");
-        btnRegistarUsuario1.addActionListener(new java.awt.event.ActionListener() {
+        Btn_CerrarSesion.setBackground(new java.awt.Color(0, 0, 0));
+        Btn_CerrarSesion.setForeground(new java.awt.Color(0, 0, 153));
+        Btn_CerrarSesion.setText("Cerrar Sesión");
+        Btn_CerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistarUsuario1ActionPerformed(evt);
+                Btn_CerrarSesionActionPerformed(evt);
             }
         });
-        getContentPane().add(btnRegistarUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, -1, -1));
+        getContentPane().add(Btn_CerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 340, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -111,9 +101,12 @@ public class GUIMenuAdministrador extends JFrame {
         }*/
     }//GEN-LAST:event_btn_AgregarCompActionPerformed
 
-    private void btnRegistarUsuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistarUsuario1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRegistarUsuario1ActionPerformed
+    private void Btn_CerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_CerrarSesionActionPerformed
+       GUISelectorTipoUser guiInicio = new GUISelectorTipoUser (); 
+       this.setVisible (false);        
+       guiInicio.setVisible (true); 
+       this.dispose();
+    }//GEN-LAST:event_Btn_CerrarSesionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,15 +145,13 @@ public class GUIMenuAdministrador extends JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRegistarUsuario1;
+    private javax.swing.JButton Btn_CerrarSesion;
     private javax.swing.JButton btn_AgregarComp;
     private javax.swing.JButton btn_ListarComp;
     private javax.swing.JButton btn_ListarPlatos;
     private javax.swing.JButton btn_agregarPlato;
     private javax.swing.JButton btn_editarMenuDia;
     private javax.swing.JButton btn_editarMenuEspecial;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel lbl_MenuAdministrador;
     // End of variables declaration//GEN-END:variables
 

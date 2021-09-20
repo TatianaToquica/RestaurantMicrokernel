@@ -8,6 +8,7 @@ package co.unicauca.microkernel.client.access;
 import co.unicauca.microkernel.client.infra.ServidorSocket;
 import co.unicauca.microkernel.common.entities.Component;
 import co.unicauca.microkernel.common.entities.Dish;
+import co.unicauca.microkernel.common.entities.User;
 import co.unicauca.microkernel.common.infra.JsonError;
 import co.unicauca.microkernel.common.infra.Protocol;
 import java.io.IOException;
@@ -193,6 +194,99 @@ public class ClienteAccessSocket implements IClienteAccess {
     public Dish findDish(int prmPlateID) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    @Override
+    public String createUser(User prmObjUser) throws Exception {
+        //String jsonResponse = null;
+        //devuelve un string en formato Json que lo que se enviara
+        String requestJson = addUser(prmObjUser);
+        if((this.procesarConexion(requestJson).equals("FALLO"))){
+            return null;
+        }
+        return valueOf(prmObjUser.getUserName());
+    }
+    private String addUser(User instancia){
+        Protocol protocol = new Protocol();
+        protocol.setResource("sistema");
+        protocol.setAction("postCrearUser");
+        protocol.addParameter("userLoginName", String.valueOf(instancia.getUserLoginName()));
+        protocol.addParameter("userPassword", String.valueOf(instancia.getUserPassword()));
+        protocol.addParameter("userName", String.valueOf(instancia.getUserName()));
+        protocol.addParameter("userLastName", String.valueOf(instancia.getUserLastName()));
+        protocol.addParameter("userAddress", String.valueOf(instancia.getUserAddres()));
+        protocol.addParameter("userMobile", String.valueOf(instancia.getUserMobile()));
+        protocol.addParameter("userEmail", String.valueOf(instancia.getUserEmail()));
+        protocol.addParameter("userType", String.valueOf(instancia.getUserType()));
+                     
+        
+        Gson gson = new Gson();
+        String requestJson = gson.toJson(protocol);
+        System.out.println("json: "+requestJson);
+        return requestJson;
+    }
+
+    @Override
+    public String findUser(String prmUserLoginName) throws Exception {
+        var respJson = findUserJson(prmUserLoginName);
+        if(this.procesarConexion(respJson).equals("Fallo")){
+            return "Fallo";
+        }
+        return prmUserLoginName;
+    }
+     private String findUserJson(String prmUserLoginName){
+        var protocol = new Protocol();
+        protocol.setResource("sistema");
+        protocol.setAction("postFindUser");
+        protocol.addParameter("userLoginName", prmUserLoginName);
+        
+        var gson = new Gson();
+        var requestJson = gson.toJson(protocol);
+        out.println("json: "+requestJson);
+
+        return requestJson;
+
+    }
+
+    @Override
+    public String validateUser(String prmUserLoginName, String prmUserPassword) throws Exception {
+         var respJson = validateUserJson(prmUserLoginName, prmUserPassword);
+        if(this.procesarConexion(respJson).equals("Fallo")){
+            return "Fallo";
+        }
+        return prmUserPassword;
+    }
+    private String validateUserJson(String prmUserLoginName, String prmUserPassword){
+        var protocol = new Protocol();
+        protocol.setResource("sistema");
+        protocol.setAction("postValidateUser");
+        protocol.addParameter("userLoginName", prmUserLoginName);
+        protocol.addParameter("userPassword", prmUserPassword);
+        var gson = new Gson();
+        var requestJson = gson.toJson(protocol);
+        out.println("json: "+requestJson);
+
+        return requestJson;
+    }
+
+    @Override
+    public String validateTypeUser(String prmUserLoginName, String prmUserType) throws Exception {
+         var respJson = validateTypeUserJson(prmUserLoginName, prmUserType);
+        if(this.procesarConexion(respJson).equals("Fallo")){
+            return "Fallo";
+        }
+        return prmUserType;
+    }
+    private String validateTypeUserJson(String prmUserLoginName, String prmUserType){
+        var protocol = new Protocol();
+        protocol.setResource("sistema");
+        protocol.setAction("postValidateTypeUser");
+        protocol.addParameter("userLoginName", prmUserLoginName);
+        protocol.addParameter("userType", prmUserType);
+        var gson = new Gson();
+        var requestJson = gson.toJson(protocol);
+        out.println("json: "+requestJson);
+
+        return requestJson;
+    }
 
 }

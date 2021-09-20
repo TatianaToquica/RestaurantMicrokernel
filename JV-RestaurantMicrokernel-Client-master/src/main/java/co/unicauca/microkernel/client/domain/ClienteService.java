@@ -8,6 +8,7 @@ package co.unicauca.microkernel.client.domain;
 import co.unicauca.microkernel.client.access.IClienteAccess;
 import co.unicauca.microkernel.common.entities.Component;
 import co.unicauca.microkernel.common.entities.Dish;
+import co.unicauca.microkernel.common.entities.User;
 
 /**
  *
@@ -34,5 +35,17 @@ public class ClienteService {
     }
     public Dish findDish(int prmPlateID)throws Exception{
         return this.service.findDish(prmPlateID);
+    }
+    public String createUser(User prmObjUser)throws Exception{
+        return this.service.createUser(prmObjUser);
+    }
+    public String findUser(String prmUserLoginName)throws Exception{
+        return this.service.findUser(prmUserLoginName);
+    }
+    public String validateUser(String prmUserLoginName, String prmUserPassword)throws Exception{
+        return this.service.validateUser(prmUserLoginName, prmUserPassword);
+    }
+    public String validateTypeUser(String prmUserLoginName, String prmUserType)throws Exception{
+        return this.service.validateTypeUser(prmUserLoginName, prmUserType);
     }
 }

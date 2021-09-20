@@ -7,14 +7,17 @@ package co.unicauca.microkernel.core.infra;
 
 import co.unicauca.microkernel.common.entities.Component;
 import co.unicauca.microkernel.common.entities.Dish;
+import co.unicauca.microkernel.common.entities.User;
 import co.unicauca.microkernel.common.infra.JsonError;
 import co.unicauca.microkernel.common.infra.Protocol;
 import co.unicauca.microkernel.common.infra.Utilities;
 import co.unicauca.microkernel.core.domain.Factory;
 import co.unicauca.microkernel.core.domain.IComponentRepository;
 import co.unicauca.microkernel.core.domain.IDishRepository;
+import co.unicauca.microkernel.core.domain.IUserRepository;
 import co.unicauca.microkernel.core.services.ComponentService;
 import co.unicauca.microkernel.core.services.DishService;
+import co.unicauca.microkernel.core.services.UserService;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.ServerSocket;
@@ -60,6 +63,7 @@ public class RestaurantServidorSocket implements Runnable{
     
     private ComponentService serviceComponent;
     private DishService serviceDish;
+    private UserService serviceUser;
     
     public RestaurantServidorSocket() {
         //inyeccion de dependencias par hacer la inyeccion
@@ -67,6 +71,8 @@ public class RestaurantServidorSocket implements Runnable{
         serviceComponent = new ComponentService(componentRepo);
         IDishRepository dishRepo = Factory.getInstance().getDishRepository();
         serviceDish = new DishService(dishRepo);
+        IUserRepository userRepo = Factory.getInstance().getUserRepository();
+        serviceUser = new UserService(userRepo);
         //codificar plato, restaurante...
     }
     /**
@@ -182,7 +188,21 @@ public class RestaurantServidorSocket implements Runnable{
                 if (protocolRequest.getAction().equals("deleteDish")) {
                     administradorDeleteDish(protocolRequest);
                 }
-            //case "cliente":
+                break;
+            case "sistema":
+                if (protocolRequest.getAction().equals("postCrearUser")) {
+                    sistemaRegistrarUser(protocolRequest);
+                }
+                if (protocolRequest.getAction().equals("postFindUser")) {
+                    sistemaFindUser(protocolRequest);
+                }
+                if (protocolRequest.getAction().equals("postValidateUser")) {
+                    sistemaValidateUser(protocolRequest);
+                }
+                if (protocolRequest.getAction().equals("postValidateTypeUser")) {
+                    sistemaValidateTypeUser(protocolRequest);
+                }
+                
         }
     }
     private void administradorRegistrarComponente(Protocol protocolRequest) {
@@ -259,7 +279,59 @@ public class RestaurantServidorSocket implements Runnable{
         response = serviceDish.deleteDish(dishId);
         output.println(response);
     }
-
+    private void sistemaRegistrarUser(Protocol protocolRequest) {
+        //crea la instancia
+        User usuario=new User();
+        //se asignan los atributos de la instancia, segun los valores de los parametros
+        //el orden debe ser exacto
+        usuario.setUserLoginName(protocolRequest.getParameters().get(0).getValue());
+        usuario.setUserPassword(protocolRequest.getParameters().get(1).getValue());
+        usuario.setUserName(protocolRequest.getParameters().get(2).getValue());
+        usuario.setUserLastName(protocolRequest.getParameters().get(3).getValue());
+        usuario.setUserAddres(protocolRequest.getParameters().get(4).getValue());
+        usuario.setUserMobile(protocolRequest.getParameters().get(5).getValue());
+        usuario.setUserEmail(protocolRequest.getParameters().get(6).getValue());
+        usuario.setUserType(protocolRequest.getParameters().get(7).getValue());
+        //hacer validacion para esta, es decir sobre el parseo del dato
+        String response = null;
+        //el servicio comunicara con la base de datos,
+        //se pasa el plato creado, y servicio llamara al repositorio
+        
+        response = serviceUser.createUser(usuario);
+        output.println(response);
+    }
+    private void sistemaFindUser(Protocol protocolRequest) {
+        String prmUserLoginName;
+        
+        prmUserLoginName = (protocolRequest.getParameters().get(0).getValue());
+        String response = null;
+        //el servicio comunicara con la base de datos,
+        //se pasa el plato creado, y servicio llamara al repositorio
+        response = serviceUser.findUser(prmUserLoginName);
+        output.println(response);
+    }
+    private void sistemaValidateUser(Protocol protocolRequest) {
+        String prmUserLoginName;
+        String prmUserPassword;
+        prmUserLoginName = (protocolRequest.getParameters().get(0).getValue());
+        prmUserPassword = (protocolRequest.getParameters().get(1).getValue());
+        String response = null;
+        //el servicio comunicara con la base de datos,
+        //se pasa el plato creado, y servicio llamara al repositorio
+        response = serviceUser.validateUser(prmUserLoginName,prmUserPassword);
+        output.println(response);
+    }
+     private void sistemaValidateTypeUser(Protocol protocolRequest) {
+        String prmUserLoginName;
+        String prmUserType;
+        prmUserLoginName = (protocolRequest.getParameters().get(0).getValue());
+        prmUserType = (protocolRequest.getParameters().get(1).getValue());
+        String response = null;
+        //el servicio comunicara con la base de datos,
+        //se pasa el plato creado, y servicio llamara al repositorio
+        response = serviceUser.validateTypeUser(prmUserLoginName,prmUserType);
+        output.println(response);
+    }
     /**
      * Genera un ErrorJson genérico en caso de fallar alguna solicitud no
      * controlada.
@@ -289,6 +361,6 @@ public class RestaurantServidorSocket implements Runnable{
         output.close();
         input.close();
         socket.close();
-    }   
+    }      
     
 }
