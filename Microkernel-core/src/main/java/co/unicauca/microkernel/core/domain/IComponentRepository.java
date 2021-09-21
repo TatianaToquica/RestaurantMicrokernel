@@ -14,22 +14,24 @@ public interface IComponentRepository {
      */
     public String createComponente(Component prmObjComponente);
     /**
-     * Encuentra un componente por parámetro 
-     * @param prmcompID identificador del componente a buscar
-     * @return Objeto de tipo Component
+     * Borra un componente de la base de datos
+     * @param prmcompId identificador del plato
+     * @return Id del componente borrado
      */
-    public Component findComponente(int prmcompID);
+    public String deleteComponente(int prmcompId);
+    /**
+     * Actualiza la información de un componente
+     * @param prmObjComponente Plato a modificar
+     * @return nombre del componente actualizado
+     */
+    public String updateComponente(Component prmObjComponente);
+    
     /**
      * Encuentra todos los componentes      
      * @return Lista de Componentes
      */
     public List<Component> findAllComponentes();
-    /**
-     * 
-     * @param prmcompID
-     * @return 
-     */
-    public String deleteComponente(int prmcompID);
-    public String updateComponente(int prmcompID);
+    
+   
 
 }

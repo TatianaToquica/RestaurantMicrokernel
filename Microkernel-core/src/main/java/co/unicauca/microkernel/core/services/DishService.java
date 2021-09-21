@@ -27,7 +27,5 @@ public class DishService {
         //hacer validaciones aqui
         return repository.deleteDish(prmplatoID);
     }
-     public Dish findDish(int prmplatoID){
-         return repository.findDish(prmplatoID);
-     }
+   
 }

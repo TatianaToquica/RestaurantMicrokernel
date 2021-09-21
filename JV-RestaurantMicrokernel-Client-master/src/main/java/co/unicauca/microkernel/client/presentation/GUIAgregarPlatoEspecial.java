@@ -39,7 +39,6 @@ public class GUIAgregarPlatoEspecial extends javax.swing.JFrame {
         btn_CargarImagenPlato = new javax.swing.JButton();
         lbl_ImagePlato = new javax.swing.JLabel();
         txt_descripPlato = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         txt_nomComp1 = new javax.swing.JTextField();
         txt_nomComp2 = new javax.swing.JTextField();
 
@@ -79,6 +78,11 @@ public class GUIAgregarPlatoEspecial extends javax.swing.JFrame {
         getContentPane().add(btn_AgregarPlatoEspecial, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, -1, -1));
 
         btn_salir.setText("Salir");
+        btn_salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_salirActionPerformed(evt);
+            }
+        });
         getContentPane().add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, -1, -1));
 
         btn_CargarImagenPlato.setText("Elegir Imagen");
@@ -87,14 +91,18 @@ public class GUIAgregarPlatoEspecial extends javax.swing.JFrame {
         lbl_ImagePlato.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         getContentPane().add(lbl_ImagePlato, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 110, 150));
         getContentPane().add(txt_descripPlato, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, 120, 70));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/DishSpecial.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 340));
         getContentPane().add(txt_nomComp1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 100, -1));
         getContentPane().add(txt_nomComp2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 100, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
+        GUIMenuAdministrador guiAdmin = new GUIMenuAdministrador();
+        this.setVisible(false);
+        guiAdmin.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_salirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -138,7 +146,6 @@ public class GUIAgregarPlatoEspecial extends javax.swing.JFrame {
     private javax.swing.JButton btn_AgregarPlatoEspecial;
     private javax.swing.JButton btn_CargarImagenPlato;
     private javax.swing.JButton btn_salir;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbl_AgregarPlatoEspecial;
     private javax.swing.JLabel lbl_IdComp;
     private javax.swing.JLabel lbl_ImagePlato;

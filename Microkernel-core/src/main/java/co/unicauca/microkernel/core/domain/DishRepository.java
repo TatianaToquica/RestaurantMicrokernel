@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  * @author HP
  */
 public class DishRepository implements IDishRepository{
-      //<editor-fold defaultstate="collapsed" desc="Atributos">
+    //<editor-fold defaultstate="collapsed" desc="Atributos">
     /**
      * Atributo para hacer la conexión con la base de datos
      */
@@ -58,10 +58,30 @@ public class DishRepository implements IDishRepository{
         }
     }
 //</editor-fold>
-   
+    //<editor-fold defaultstate="collapsed" desc="Metodos de la clase">
+    public String findDish(int prmplatoID) {
+        String resultado="Fallo";
+        try {
+            this.connect();
+            String sql = "SELECT * FROM Dish WHERE dishID=?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, prmplatoID);
+            ResultSet res = pstmt.executeQuery();
+            if (res.next()) {
+                resultado="Correcto";
+            }
+            pstmt.close();
+            this.disconnect();
+        } catch (SQLException ex) {
+            Logger.getLogger(ComponentRepository.class.getName()).log(Level.SEVERE, "Error al buscar un componente en la base de datos", ex);
+        }
+        return resultado;
+    }  
+    //</editor-fold> 
     //<editor-fold defaultstate="collapsed" desc="Métodos sobre-escritos">
     @Override
     public String createDish(Dish prmObjPlato) {
+        String resultado="Fallo crear Componente";
         try {
             this.connect();
             String sql = "INSERT INTO Dish (dishID, dishName, dishDescription, dishPrice, dishImage) "
@@ -73,48 +93,20 @@ public class DishRepository implements IDishRepository{
             pstmt.setInt(4, (int) prmObjPlato.getDishPrice()); //BD float clase double
             pstmt.setBytes(5, prmObjPlato.getDishImage());
             pstmt.executeUpdate();
+             resultado=prmObjPlato.getDishName();
             pstmt.close();
             this.disconnect();
         } catch (SQLException ex) {
             Logger.getLogger(ComponentRepository.class.getName()).log(Level.SEVERE, "Error al insertar el ObjDish", ex);
         }
-        return Integer.toString(prmObjPlato.getDishID());
+        return resultado;
     }  
-
-    @Override
-    public Dish findDish(int prmplatoID) {
-        Dish varObjPlate = null;
-        try {
-            this.connect();
-            String sql = "SELECT * FROM Dish WHERE dishID=?";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, prmplatoID);
-            ResultSet res = pstmt.executeQuery();
-            if (res.next()) {
-                varObjPlate = new Dish();
-                varObjPlate.setDishID(res.getInt("dishID"));
-                varObjPlate.setDishName(res.getString("dishName"));
-                varObjPlate.setDishDescription(res.getString("dishDescription"));
-                varObjPlate.setDishPrice(res.getInt("dishPrice"));
-            }
-            pstmt.close();
-            this.disconnect();
-        } catch (SQLException ex) {
-            Logger.getLogger(DishRepository.class.getName()).log(Level.SEVERE, "Error al buscar un plato en la base de datos", ex);
-        }
-        return varObjPlate;
-    }
-
-    @Override
-    public List<Dish> findAllDish() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
     @Override
     public String deleteDish(int prmplatoID) {
-        Dish plate=new Dish();
-        plate=findDish(prmplatoID);        
-        if (plate!=null) {
+        String resultado;
+        resultado=findDish(prmplatoID);        
+        if (resultado!="Fallo") {
             System.out.println("EXISTE EL ELEMENTO");
         } else {
             System.out.println("NO EXISTE EL ELEMENTO");
@@ -143,8 +135,40 @@ public class DishRepository implements IDishRepository{
     }
 
     @Override
-    public String updateDish(int prmplatoID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String updateDish(Dish prmObjPlato) {
+        String resultado;
+        resultado=findDish(prmObjPlato.getDishID());        
+        if (resultado!="Fallo") {
+            System.out.println("EXISTE EL ELEMENTO");
+        } else {
+            System.out.println("NO EXISTE EL ELEMENTO");
+            return "FALLO";
+        }
+        try{
+            this.connect();
+            //String sql = "UPDATE platoespecial set "+atributo+" = "+valor+" WHERE PESP_NOMBRE = "+clave;
+            String sql = "UPDATE Dish SET dishID = ?, dishName = ?, dishDescription = ?, dishPrice = ?, dishImage = ? WHERE dishID = ?";
+            System.out.println("SENTENCIA SQL UPDATE Component: "+sql);
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, prmObjPlato.getDishID());
+            pstmt.setString(2, prmObjPlato.getDishName());
+            pstmt.setString(3, prmObjPlato.getDishDescription());
+            pstmt.setInt(4, (int) prmObjPlato.getDishPrice()); //BD float clase double
+            pstmt.setBytes(5, prmObjPlato.getDishImage());
+            
+            pstmt.executeUpdate();
+            
+            pstmt.close();
+            this.disconnect();
+        }catch (SQLException ex) {
+            Logger.getLogger(ComponentRepository.class.getName()).log(Level.SEVERE, "Error al actualizar el componente en la BD", ex);
+            return "FALLO";
+        }
+        return prmObjPlato.getDishName();
     }
     
+    @Override
+    public List<Dish> findAllDish() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

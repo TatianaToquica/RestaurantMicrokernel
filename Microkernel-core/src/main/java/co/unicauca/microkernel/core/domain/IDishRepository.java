@@ -20,21 +20,22 @@ public interface IDishRepository {
      */
     public String createDish(Dish prmObjPlato);
     /**
-     * Encuentra un plato por parámetro 
-     * @param prmplatoID identificador del plato a buscar
-     * @return Objeto de tipo Dish
+     * Borra un plato especial de la base de datos
+     * @param prmplatoID identificador del plato
+     * @return respuesta de exito o fracaso sobre la operacion
      */
-    public Dish findDish(int prmplatoID);
+    public String deleteDish(int prmplatoID);
+    /**
+     * Actualiza la información de un plato
+     * @param prmObjPlato Plato a modificar
+     * @return nombre del plato que fue actualizado
+     */
+    public String updateDish(Dish prmObjPlato);
+    
     /**
      * Encuentra todos los platos    
      * @return Lista de platos especiales
      */
-    public List<Dish> findAllDish();
-    /**
-     * 
-     * @param prmplatoID
-     * @return 
-     */
-    public String deleteDish(int prmplatoID);
-    public String updateDish(int prmplatoID);
+    public List<Dish> findAllDish();    
+    
 }

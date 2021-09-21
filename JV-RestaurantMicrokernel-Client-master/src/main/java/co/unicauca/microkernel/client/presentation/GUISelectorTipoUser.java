@@ -35,6 +35,7 @@ public class GUISelectorTipoUser extends javax.swing.JFrame {
         Btn_Cliente = new javax.swing.JButton();
         Btn_Administrador = new javax.swing.JButton();
         Btn_Salir = new javax.swing.JButton();
+        Btn_Registrarse = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -111,9 +112,21 @@ public class GUISelectorTipoUser extends javax.swing.JFrame {
                 Btn_SalirActionPerformed(evt);
             }
         });
-        jPanel1.add(Btn_Salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, 140, 36));
+        jPanel1.add(Btn_Salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, 140, 36));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 300));
+        Btn_Registrarse.setBackground(new java.awt.Color(0, 0, 255));
+        Btn_Registrarse.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 18)); // NOI18N
+        Btn_Registrarse.setForeground(new java.awt.Color(255, 255, 255));
+        Btn_Registrarse.setText("Registrarse");
+        Btn_Registrarse.setBorder(null);
+        Btn_Registrarse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_RegistrarseActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Btn_Registrarse, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 140, 36));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 360));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -138,6 +151,13 @@ public class GUISelectorTipoUser extends javax.swing.JFrame {
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_Btn_SalirActionPerformed
+
+    private void Btn_RegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_RegistrarseActionPerformed
+        this.setVisible(false);
+        GUIRegistrarUsuario registro = new GUIRegistrarUsuario();        
+        registro.setVisible(true);
+        registro.pack();
+    }//GEN-LAST:event_Btn_RegistrarseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,6 +198,7 @@ public class GUISelectorTipoUser extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Administrador;
     private javax.swing.JButton Btn_Cliente;
+    private javax.swing.JButton Btn_Registrarse;
     private javax.swing.JButton Btn_Salir;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;

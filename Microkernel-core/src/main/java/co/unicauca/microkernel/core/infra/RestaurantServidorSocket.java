@@ -203,6 +203,7 @@ public class RestaurantServidorSocket implements Runnable{
                     sistemaValidateTypeUser(protocolRequest);
                 }
                 
+                
         }
     }
     private void administradorRegistrarComponente(Protocol protocolRequest) {
@@ -231,7 +232,7 @@ public class RestaurantServidorSocket implements Runnable{
         comp.setCompImage(protocol.getBytes());
         
         String response = null;
-        response = serviceComponent.updateComponente(comp.getCompId());
+        response = serviceComponent.updateComponente(comp);
         output.println(response);
         Logger.getLogger(RestaurantServidorSocket.class.getName()).log(Level.SEVERE, "response: "+response);
     }
@@ -332,6 +333,7 @@ public class RestaurantServidorSocket implements Runnable{
         response = serviceUser.validateTypeUser(prmUserLoginName,prmUserType);
         output.println(response);
     }
+    
     /**
      * Genera un ErrorJson genérico en caso de fallar alguna solicitud no
      * controlada.
@@ -362,5 +364,7 @@ public class RestaurantServidorSocket implements Runnable{
         input.close();
         socket.close();
     }      
+
+    
     
 }

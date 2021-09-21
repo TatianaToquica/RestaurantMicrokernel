@@ -74,6 +74,11 @@ public class GUIMenuAdministrador extends JFrame {
         getContentPane().add(btn_editarMenuDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 140, -1));
 
         btn_agregarPlato.setText("Agregar Plato Especial");
+        btn_agregarPlato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agregarPlatoActionPerformed(evt);
+            }
+        });
         getContentPane().add(btn_agregarPlato, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 140, -1));
 
         Btn_CerrarSesion.setBackground(new java.awt.Color(0, 0, 0));
@@ -90,15 +95,10 @@ public class GUIMenuAdministrador extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_AgregarCompActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AgregarCompActionPerformed
-        //co.unicauca.microkernel.common.entities.User  Usuario = new User(txtUserLoginName.getText(),txtUserPassword.getText(),txtUserName.getText(),txtUserLastName.getText(),txtUserAddress.getText(),txtUserMobile.getText(),txtUserEmail.getText());
-        //Aqui vendria el analizar si el usuario existe en el sistema
-        //User varUser = service.invalidateUser(txtUserLoginName.getText());
-        /**if (varUser!=null) {//El usuario fue encontrado
-           JOptionPane.showMessageDialog(null, "El Login ya existe");
-        } else {           
-            String usuarioCreado=service.createUser(Usuario);
-            JOptionPane.showMessageDialog(null, "Ha sido creado el usuario ", usuarioCreado, HEIGHT);//revisar
-        }*/
+       GUIAgregarComponentes guiComponent = new GUIAgregarComponentes (); 
+       this.setVisible (false);        
+       guiComponent.setVisible (true); 
+       this.dispose();
     }//GEN-LAST:event_btn_AgregarCompActionPerformed
 
     private void Btn_CerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_CerrarSesionActionPerformed
@@ -107,6 +107,13 @@ public class GUIMenuAdministrador extends JFrame {
        guiInicio.setVisible (true); 
        this.dispose();
     }//GEN-LAST:event_Btn_CerrarSesionActionPerformed
+
+    private void btn_agregarPlatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarPlatoActionPerformed
+       GUIAgregarPlatoEspecial guiDish = new GUIAgregarPlatoEspecial(); 
+       this.setVisible (false);        
+       guiDish.setVisible (true); 
+       this.dispose();
+    }//GEN-LAST:event_btn_agregarPlatoActionPerformed
 
     /**
      * @param args the command line arguments

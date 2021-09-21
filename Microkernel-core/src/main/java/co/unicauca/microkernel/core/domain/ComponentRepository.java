@@ -53,14 +53,35 @@ public class ComponentRepository implements IComponentRepository{
         }
     }
 //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Metodos de la clase">
+    public String findComponente(int prmcompId) {   
+        String resultado="Fallo";
+        try {
+            this.connect();
+            String sql = "SELECT * FROM Component WHERE compID=?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, prmcompId);
+            ResultSet res = pstmt.executeQuery();
+            if (res.next()) {
+                resultado="Correcto";
+            }
+            pstmt.close();
+            this.disconnect();
+        } catch (SQLException ex) {
+            Logger.getLogger(ComponentRepository.class.getName()).log(Level.SEVERE, "Error al buscar un componente en la base de datos", ex);
+        }
+        return resultado;
+    }
+    //</editor-fold>    
+    //<editor-fold defaultstate="collapsed" desc="Métodos sobre-escritos">
     /**
      * Crea un componente con un ocjto de tipo componente porporcionado
      * @param prmObjComponente nuevo Objeto componente a ser creafo e insertado en la base de datos
      * @return retorna ID del componente o una excepción en caso de fallar
      */
-    //<editor-fold defaultstate="collapsed" desc="Métodos sobre-escritos">
     @Override
     public String createComponente(Component prmObjComponente) {
+        String resultado="Fallo crear Componente";
         try {
             this.connect();
             String sql = "INSERT INTO Component (compID, compName, compType, compPrice, compImage) "
@@ -71,44 +92,21 @@ public class ComponentRepository implements IComponentRepository{
             pstmt.setString(3, prmObjComponente.getCompType());
             pstmt.setInt(4, prmObjComponente.getCompPrice());
             pstmt.setBytes(5, prmObjComponente.getCompImage());
-            pstmt.executeUpdate();
+            pstmt.execute();
+            resultado=prmObjComponente.getCompName();
             pstmt.close();
             this.disconnect();
         } catch (SQLException ex) {
             Logger.getLogger(ComponentRepository.class.getName()).log(Level.SEVERE, "Error al insertar el ObjComponente", ex);
         }
-        return Integer.toString(prmObjComponente.getCompId());
-    }
+        return resultado;
+    }   
     
     @Override
-    public Component findComponente(int prmcompID) {
-        Component varObjComp = null;
-        try {
-            this.connect();
-            String sql = "SELECT * FROM Component WHERE compID=?";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, prmcompID);
-            ResultSet res = pstmt.executeQuery();
-            if (res.next()) {
-                varObjComp = new Component();
-                varObjComp.setCompId(res.getInt("compID"));
-                varObjComp.setCompName(res.getString("compName"));
-                varObjComp.setCompType(res.getString("compType"));
-                varObjComp.setCompPrice(res.getInt("compPrice"));
-            }
-            pstmt.close();
-            this.disconnect();
-        } catch (SQLException ex) {
-            Logger.getLogger(ComponentRepository.class.getName()).log(Level.SEVERE, "Error al buscar un componente en la base de datos", ex);
-        }
-        return varObjComp;
-    }
-    
-    @Override
-    public String deleteComponente(int prmcompID) {
-        Component prueba=new Component();
-        prueba=findComponente(prmcompID);        
-        if (prueba!=null) {
+    public String deleteComponente(int prmcompId) {
+        String resultado;
+        resultado=findComponente(prmcompId);        
+        if (resultado!="Fallo") {
             System.out.println("EXISTE EL ELEMENTO");
         } else {
             System.out.println("NO EXISTE EL ELEMENTO");
@@ -118,11 +116,11 @@ public class ComponentRepository implements IComponentRepository{
             //primero se establece la conexion
             this.connect(); //validar cuando la conexion no sea exitosa
             //se estructura la sentencia sql en un string
-            String sql = "DELETE FROM Component WHERE compId = (?)";
+            String sql = "DELETE FROM Component WHERE compID= (?)";
             //pstmt mantendra la solicitud sobre la base de datos, se asignam sus columnas
             PreparedStatement pstmt = conn.prepareStatement(sql);
             //se compara el id, OJO Ddebe cumplir estrictamente el orden y el tipo de dato(de las tablas)
-            pstmt.setInt(1, prmcompID);
+            pstmt.setInt(1, prmcompId);
 
             pstmt.executeUpdate();
             //se cierra
@@ -132,14 +130,14 @@ public class ComponentRepository implements IComponentRepository{
         } catch (SQLException ex) {
             Logger.getLogger(ComponentRepository.class.getName()).log(Level.SEVERE, "Error al eliminar el componente de la BD", ex);
         }
-        return "" + prmcompID;
+        return ""+prmcompId;
     }
     
     @Override
-    public String updateComponente(int prmcompID) {
-        Component comp=new Component();
-        comp=findComponente(prmcompID);        
-        if (comp!=null) {
+    public String updateComponente(Component comp) {
+        String resultado;
+        resultado=findComponente(comp.getCompId());        
+        if (resultado!="Fallo") {
             System.out.println("EXISTE EL ELEMENTO");
         } else {
             System.out.println("NO EXISTE EL ELEMENTO");
@@ -167,10 +165,10 @@ public class ComponentRepository implements IComponentRepository{
         }
         return comp.getCompName();
     }
-    
      @Override
     public List<Component> findAllComponentes() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 //</editor-fold>   
+    
 }

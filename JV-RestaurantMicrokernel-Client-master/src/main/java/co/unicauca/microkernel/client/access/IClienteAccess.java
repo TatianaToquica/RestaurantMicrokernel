@@ -16,12 +16,14 @@ import co.unicauca.microkernel.common.entities.User;
  */
 public interface IClienteAccess {
     public String createComponente(Component component) throws Exception;
+    public String updateComponente(Component prmObjComponente)throws Exception;
+    public String deleteComponente(int prmcompId) throws Exception;
+    
+    
     public String createDish(Dish plate) throws Exception;
-    public String deleteDish(int prmPlateID) throws Exception;
-    public String updateComponente(int prmcompID)throws Exception;
-    public String deleteComponente(int prmcompID) throws Exception;
-    public Component findComponente(int prmcompID)throws Exception;
+    public String deleteDish(int prmPlateID) throws Exception;    
     public Dish findDish(int prmPlateID)throws Exception;
+    
     public String createUser(User prmObjUser)throws Exception;
     public String findUser(String prmUserLoginName)throws Exception;
     public String validateUser(String prmUserLoginName, String prmUserPassword)throws Exception;

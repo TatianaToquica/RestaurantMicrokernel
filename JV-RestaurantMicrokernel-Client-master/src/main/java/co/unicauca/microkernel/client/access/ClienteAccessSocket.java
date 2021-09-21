@@ -138,23 +138,23 @@ public class ClienteAccessSocket implements IClienteAccess {
     }
 
     @Override
-    public String updateComponente(int prmcompID) throws Exception {         
+    public String updateComponente(Component prmObjComponente) throws Exception {         
         throw new UnsupportedOperationException("Not supported yet."); 
     }
     
     @Override
-    public String deleteComponente(int prmcompID) throws Exception {
-         var respJson = deleteComponentJson(prmcompID);
+    public String deleteComponente(int prmcompId) throws Exception {
+         var respJson = deleteComponentJson(prmcompId);
         if(this.procesarConexion(respJson).equals("FALLO")){
             return "FALLO";
         }
-        return "" + prmcompID;
+        return "" + prmcompId;
     }
-    private String deleteComponentJson(int prmcompID){
+    private String deleteComponentJson(int prmcompId){
         var protocol = new Protocol();
         protocol.setResource("administrador");
         protocol.setAction("deleteComponent");
-        protocol.addParameter("compId", ""+prmcompID);
+        protocol.addParameter("compID", ""+prmcompId);
         
         var gson = new Gson();
         var requestJson = gson.toJson(protocol);
@@ -163,11 +163,7 @@ public class ClienteAccessSocket implements IClienteAccess {
         return requestJson;
     }
 
-    @Override
-    public Component findComponente(int prmcompID) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
     @Override
     public String deleteDish(int prmPlateID) throws Exception {
         var respJson = deletePlatoEspecialJson(prmPlateID);

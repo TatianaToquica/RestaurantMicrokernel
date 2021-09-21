@@ -69,6 +69,7 @@ public class GUIRegistrarUsuario extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         cbx_tipoUser = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
+        Btn_Atras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 255));
@@ -132,6 +133,14 @@ public class GUIRegistrarUsuario extends javax.swing.JFrame {
         jLabel7.setText("Tipo Usuario:*");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
 
+        Btn_Atras.setText("Atrás");
+        Btn_Atras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_AtrasActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Btn_Atras, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -166,6 +175,13 @@ public class GUIRegistrarUsuario extends javax.swing.JFrame {
             Logger.getLogger(GUIRegistrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnRegistarUsuarioActionPerformed
+
+    private void Btn_AtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_AtrasActionPerformed
+        GUISelectorTipoUser guiPrincipal = new GUISelectorTipoUser();
+        this.setVisible(false);
+        guiPrincipal.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_Btn_AtrasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,6 +219,7 @@ public class GUIRegistrarUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Btn_Atras;
     private javax.swing.JButton btnRegistarUsuario;
     private javax.swing.JComboBox<String> cbx_tipoUser;
     private javax.swing.JLabel jLabel1;

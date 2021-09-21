@@ -7,17 +7,17 @@ package co.unicauca.microkernel.common.entities;
 public class DayMenu {
     //<editor-fold defaultstate="collapsed" desc="Atributos">
     /**
-     * Identificador del menú 
+     * Identificador del componente
      */
-    int dmenID;
+    private int dmenCompID;
     /**
      * describe el día del menú 
      */
-    String dmenDay;
+    private String dmenDay;
     /**
      * identificador del restaurante al cual está adscrito el menú
      */
-    String resID;
+    private String resID;
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Constructores">
     /**
@@ -31,8 +31,8 @@ public class DayMenu {
      * @param dmenDay día del menú
      * @param resID Identificador del restaurante
      */
-    public DayMenu(int dmenID, String dmenDay, String resID) {
-        this.dmenID = dmenID;
+    public DayMenu(int dmenCompID, String dmenDay, String resID) {
+        this.dmenCompID = dmenCompID;
         this.dmenDay = dmenDay;
         this.resID = resID;
     }
@@ -42,8 +42,8 @@ public class DayMenu {
      * Obtiene el identificador del menu
      * @return int dmenID
      */
-    public int getDmenID() {
-        return dmenID;
+    public int getDmenCompID() {    
+        return dmenCompID;
     }
     /**
      * Obtiene el día del menú
@@ -65,9 +65,10 @@ public class DayMenu {
      * Modifica el ID del menú
      * @param dmenID Identificador
      */
-    public void setDmenID(int dmenID) {
-        this.dmenID = dmenID;
+    public void setDmenCompID(int dmenCompID) {    
+        this.dmenCompID = dmenCompID;
     }
+
     /**
      * Modifica el día del menú
      * @param dmenDay nuevo día del menú

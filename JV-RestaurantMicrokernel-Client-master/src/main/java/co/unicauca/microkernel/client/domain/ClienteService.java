@@ -27,8 +27,8 @@ public class ClienteService {
     public String createDish(Dish plate) throws Exception{
         return this.service.createDish(plate);
     }
-    public String deleteComponente(int prmcompID) throws Exception{
-         return this.service.deleteComponente(prmcompID);
+     public String deleteComponente(int prmcompId) throws Exception{
+         return this.service.deleteComponente(prmcompId);
     }
     public String deleteDish(int prmPlateID) throws Exception{
         return this.service.deleteDish(prmPlateID);

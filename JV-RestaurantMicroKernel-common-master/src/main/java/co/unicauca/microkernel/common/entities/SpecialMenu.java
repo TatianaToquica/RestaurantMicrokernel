@@ -7,7 +7,7 @@ package co.unicauca.microkernel.common.entities;
 public class SpecialMenu {
     //<editor-fold defaultstate="collapsed" desc="Atributos">
     /**
-     * Identificador del menu especial
+     * Identificador del plato especial
      */
     private int smenID;
     /**
