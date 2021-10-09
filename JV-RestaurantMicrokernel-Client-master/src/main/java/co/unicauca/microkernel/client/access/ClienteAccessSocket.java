@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package co.unicauca.microkernel.client.access;
 
 import co.unicauca.microkernel.client.infra.ServidorSocket;
@@ -14,7 +10,9 @@ import co.unicauca.microkernel.common.infra.Protocol;
 import java.io.IOException;
 import static java.lang.System.out;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import static java.lang.String.valueOf;
+import java.util.List;
 
 /**
  *
@@ -105,7 +103,8 @@ public class ClienteAccessSocket implements IClienteAccess {
         protocol.addParameter("compName", String.valueOf(instancia.getCompName()));
         protocol.addParameter("compType", String.valueOf(instancia.getCompType()));
         protocol.addParameter("compPrice", String.valueOf(instancia.getCompPrice()));
-        protocol.setBytes(instancia.getCompImage());               
+        protocol.setBytes(instancia.getCompImage());
+        protocol.addParameter("userLoginName", String.valueOf(instancia.getUserLoginName()));
         
         Gson gson = new Gson();
         String requestJson = gson.toJson(protocol);
@@ -143,18 +142,18 @@ public class ClienteAccessSocket implements IClienteAccess {
     }
     
     @Override
-    public String deleteComponente(int prmcompId) throws Exception {
-         var respJson = deleteComponentJson(prmcompId);
+    public String deleteComponente(String prmCompName) throws Exception {
+         var respJson = deleteComponentJson(prmCompName);
         if(this.procesarConexion(respJson).equals("FALLO")){
             return "FALLO";
         }
-        return "" + prmcompId;
+        return "" + prmCompName;
     }
-    private String deleteComponentJson(int prmcompId){
+    private String deleteComponentJson(String prmCompName){
         var protocol = new Protocol();
         protocol.setResource("administrador");
         protocol.setAction("deleteComponent");
-        protocol.addParameter("compID", ""+prmcompId);
+        protocol.addParameter("compName", ""+prmCompName);
         
         var gson = new Gson();
         var requestJson = gson.toJson(protocol);
@@ -184,11 +183,6 @@ public class ClienteAccessSocket implements IClienteAccess {
 
         return requestJson;
 
-    }
-
-    @Override
-    public Dish findDish(int prmPlateID) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -285,4 +279,87 @@ public class ClienteAccessSocket implements IClienteAccess {
         return requestJson;
     }
 
+    @Override
+    public String findComponente(String prmCompName) throws Exception {
+        var respJson = findComponentJson(prmCompName);
+        if(this.procesarConexion(respJson).equals("Fallo")){
+            return "Fallo";
+        }
+        return prmCompName;
+    }
+    private String findComponentJson(String prmCompName){
+        var protocol = new Protocol();
+        protocol.setResource("sistema");
+        protocol.setAction("postFindComponent");
+        protocol.addParameter("compName", prmCompName);
+        
+        var gson = new Gson();
+        var requestJson = gson.toJson(protocol);
+        out.println("json: "+requestJson);
+
+        return requestJson;
+
+    }
+
+    @Override
+    public List<Component> findAllComponentes(String LoginAdmin) throws Exception {
+        var respJson = findAllComponentsJson(LoginAdmin);
+        var response = procesarConexion(respJson);         
+        return jsonListComponents(response);
+    }
+    private String findAllComponentsJson(String LoginAdmin){
+        var protocol = new Protocol();
+        protocol.setResource("administrador");
+        protocol.setAction("postListarComponentes");
+        protocol.addParameter("userLoginName", LoginAdmin);
+        
+        var gson = new Gson();
+        var requestJson = gson.toJson(protocol);
+        out.println("json: "+requestJson);
+
+        return requestJson;
+
+    }
+    /**
+     * Convierte un json en una lista de tipo Componente
+     * 
+     * @param jsonListarComponentes
+     * @return 
+     */
+    private List<Component> jsonListComponents(String jsonListarComponents){
+        var gson=new Gson();
+        var list = new TypeToken<List<Component>>(){}.getType();
+        return gson.fromJson(jsonListarComponents, list);
+    }
+
+    @Override
+    public List<Dish> findAllDish(String LoginAdmin) throws Exception {
+        var respJson = findAllDishJson(LoginAdmin);
+        var response = procesarConexion(respJson);         
+        return jsonListDish(response);
+    }
+    private String findAllDishJson(String LoginAdmin){
+        var protocol = new Protocol();
+        protocol.setResource("administrador");
+        protocol.setAction("postListarDish");
+        protocol.addParameter("userLoginName", LoginAdmin);
+        
+        var gson = new Gson();
+        var requestJson = gson.toJson(protocol);
+        out.println("json: "+requestJson);
+
+        return requestJson;
+
+    }
+    /**
+     * Convierte un json en una lista de tipo Plato especial
+     * 
+     * @param jsonListarDish
+     * @return 
+     */
+    private List<Dish> jsonListDish(String jsonListarDish){
+        var gson=new Gson();
+        var list = new TypeToken<List<Component>>(){}.getType();
+        return gson.fromJson(jsonListarDish, list);
+    }
 }

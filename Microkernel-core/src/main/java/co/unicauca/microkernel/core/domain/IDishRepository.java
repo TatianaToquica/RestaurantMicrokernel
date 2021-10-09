@@ -16,7 +16,7 @@ public interface IDishRepository {
     /**
      * Crea un nuevo plato
      * @param prmObjPlato objeto a ser creado
-     * @return ID del plato creado
+     * @return nombre del plato creado
      */
     public String createDish(Dish prmObjPlato);
     /**
@@ -33,9 +33,9 @@ public interface IDishRepository {
     public String updateDish(Dish prmObjPlato);
     
     /**
-     * Encuentra todos los platos    
-     * @return Lista de platos especiales
+     * Encuentra todos los platos      
+     * @return cadena de todos los platos
      */
-    public List<Dish> findAllDish();    
+    public String findAllDish(String LoginAdmin);
     
 }

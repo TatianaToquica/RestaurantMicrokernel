@@ -28,7 +28,7 @@ public class GUILoguin extends javax.swing.JFrame {
         this.usuario = new User();
         initComponents();
         setLocationRelativeTo(null);
-        setSize(510, 400);
+       
     }
 
     public void TipoUsuario(String typeUser) {
@@ -114,13 +114,15 @@ public class GUILoguin extends javax.swing.JFrame {
         Btn_IniciarSesion.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 18)); // NOI18N
         Btn_IniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
         Btn_IniciarSesion.setText("Iniciar");
+        Btn_IniciarSesion.setToolTipText("Iniciar Sesión");
         Btn_IniciarSesion.setBorder(null);
+        Btn_IniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Btn_IniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_IniciarSesionActionPerformed(evt);
             }
         });
-        jPanel1.add(Btn_IniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, 72, 36));
+        jPanel1.add(Btn_IniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 270, 72, 36));
 
         jLabel6.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -152,14 +154,16 @@ public class GUILoguin extends javax.swing.JFrame {
         Btn_Atras.setBackground(new java.awt.Color(0, 0, 255));
         Btn_Atras.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 18)); // NOI18N
         Btn_Atras.setForeground(new java.awt.Color(255, 255, 255));
-        Btn_Atras.setText("Atrás");
+        Btn_Atras.setText("<----");
+        Btn_Atras.setToolTipText("retroceder una página");
         Btn_Atras.setBorder(null);
+        Btn_Atras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Btn_Atras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_AtrasActionPerformed(evt);
             }
         });
-        jPanel1.add(Btn_Atras, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 72, 36));
+        jPanel1.add(Btn_Atras, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, 72, 36));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 400));
 
@@ -182,13 +186,15 @@ public class GUILoguin extends javax.swing.JFrame {
                     varTipo = serviceRest.validateTypeUser(txtUserLogin.getText(), tipoUser);
                     //validar el tipo de usuario
                     if (varTipo != "Fallo") {
-                        if (tipoUser == "administrador") {
+                        JOptionPane.showMessageDialog(null, "Ha iniciado sesión con Éxito");
+                        if (tipoUser == "administrador") {                            
                             this.setVisible(false);
                             GUIMenuAdministrador opcAdmin = new GUIMenuAdministrador();
+                            opcAdmin.LoginUsuario(txtUserLogin.getText());
                             opcAdmin.setVisible(true);
                             opcAdmin.pack();
                         }
-                        if (tipoUser == "cliente") {
+                        if (tipoUser == "cliente") {                            
                             this.setVisible(false);
                             GUIMenuClient opcClient = new GUIMenuClient();
                             opcClient.setVisible(true);

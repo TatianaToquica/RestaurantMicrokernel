@@ -83,6 +83,7 @@ public class GUISelectorTipoUser extends javax.swing.JFrame {
         Btn_Cliente.setForeground(new java.awt.Color(255, 255, 255));
         Btn_Cliente.setText("Cliente");
         Btn_Cliente.setBorder(null);
+        Btn_Cliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Btn_Cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_ClienteActionPerformed(evt);
@@ -95,6 +96,7 @@ public class GUISelectorTipoUser extends javax.swing.JFrame {
         Btn_Administrador.setForeground(new java.awt.Color(255, 255, 255));
         Btn_Administrador.setText("Administrador");
         Btn_Administrador.setBorder(null);
+        Btn_Administrador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Btn_Administrador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_AdministradorActionPerformed(evt);
@@ -107,6 +109,7 @@ public class GUISelectorTipoUser extends javax.swing.JFrame {
         Btn_Salir.setForeground(new java.awt.Color(255, 255, 255));
         Btn_Salir.setText("Salir");
         Btn_Salir.setBorder(null);
+        Btn_Salir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Btn_Salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_SalirActionPerformed(evt);
@@ -119,6 +122,7 @@ public class GUISelectorTipoUser extends javax.swing.JFrame {
         Btn_Registrarse.setForeground(new java.awt.Color(255, 255, 255));
         Btn_Registrarse.setText("Registrarse");
         Btn_Registrarse.setBorder(null);
+        Btn_Registrarse.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Btn_Registrarse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_RegistrarseActionPerformed(evt);
@@ -148,8 +152,7 @@ public class GUISelectorTipoUser extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_AdministradorActionPerformed
 
     private void Btn_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_SalirActionPerformed
-        this.setVisible(false);
-        this.dispose();
+       System.exit(0);
     }//GEN-LAST:event_Btn_SalirActionPerformed
 
     private void Btn_RegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_RegistrarseActionPerformed

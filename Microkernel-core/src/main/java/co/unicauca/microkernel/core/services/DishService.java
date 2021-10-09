@@ -27,5 +27,8 @@ public class DishService {
         //hacer validaciones aqui
         return repository.deleteDish(prmplatoID);
     }
+     public String findAllDish(String LoginAdmin){
+         return repository.findAllDish(LoginAdmin);
+     }
    
 }

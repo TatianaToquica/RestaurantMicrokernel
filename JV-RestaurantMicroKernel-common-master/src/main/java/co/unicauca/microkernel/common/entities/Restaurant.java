@@ -31,6 +31,10 @@ public class Restaurant {
      * Descripción temática del restaurante (Vegetariano, gourmet,etc)
      */
     private String resDescFood;
+      /**
+     * Nombre de usuario en plataforma
+     */
+    private String userLoginName;
     // </editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Constructores">
     /**
@@ -40,12 +44,13 @@ public class Restaurant {
      * @param resAddress Dirección del restaurante
      * @param resDescFood Descripción de la temática
      */
-    public Restaurant(String resID, String resName, String resAddress, String resDescFood) {
+    public Restaurant(String resID, String resName, String resAddress, String resDescFood, String userLoginName) {
         this.resID = resID;
     //    this.userName = userName;
         this.resName = resName;
         this.resAddress = resAddress;
         this.resDescFood = resDescFood;
+        this.userLoginName = userLoginName;
     }
     /**
      * Constructor no parametrizado por default
@@ -88,6 +93,11 @@ public class Restaurant {
     public String getResDescFood() {
         return resDescFood;
     }
+
+    public String getUserLoginName() {
+        return userLoginName;
+    }
+    
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Setters">
     /**
@@ -125,5 +135,8 @@ public class Restaurant {
     public void setResDescFood(String resDescFood) {
         this.resDescFood = resDescFood;
     }
-//</editor-fold>
+    public void setUserLoginName(String userLoginName) {
+        this.userLoginName = userLoginName;
+    }
+//</editor-fold>    
 }

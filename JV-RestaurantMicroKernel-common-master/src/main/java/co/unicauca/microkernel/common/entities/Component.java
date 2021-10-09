@@ -26,6 +26,10 @@ public class Component {
      * imagen que describe el componente
      */
     private byte [] CompImage;
+    /**
+     * login del admin
+     */
+    private String  userLoginName;
 //</editor-fold>  
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
@@ -39,13 +43,15 @@ public class Component {
      * @param precio Precio
      * @param Tipo Tipo 
      * @param CompImage Imagen
+     * @param userLoginName loginAdmin
      */
-    public Component(int compId, String compNombre, int precio, String Tipo, byte[] CompImage) {
+    public Component(int compId, String compNombre, int precio, String Tipo, byte[] CompImage,String  userLoginName) {
         this.compId = compId;
         this.compName = compNombre;
         this.compPrice = precio;
         this.compType = Tipo;
         this.CompImage = CompImage;
+        this.userLoginName =  userLoginName;
     }
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters">
@@ -84,6 +90,13 @@ public class Component {
     public byte[] getCompImage() {
         return CompImage;
     }
+
+    public String getUserLoginName() {
+        return userLoginName;
+    }
+
+   
+    
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Setters">
     /**
@@ -121,7 +134,8 @@ public class Component {
     public void setCompImage(byte[] CompImage) {
         this.CompImage = CompImage;
     }
-//</editor-fold>
-
-    
+    public void setUserLoginName(String userLoginName) {
+        this.userLoginName = userLoginName;
+    }
+//</editor-fold>    
 }

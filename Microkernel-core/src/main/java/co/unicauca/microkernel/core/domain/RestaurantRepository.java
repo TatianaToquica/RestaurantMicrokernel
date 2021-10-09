@@ -10,6 +10,7 @@ import co.unicauca.microkernel.common.infra.Utilities;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -59,13 +60,14 @@ public class RestaurantRepository implements IRestaurantRepository {
     public String createRestaurant(Restaurant prmObjRestaurant) {
         try {
             this.connect();
-            String sql = "INSERT INTO Restaurant (resID, resName, resAddress, resDescFood) "
-                    + "VALUES (?,?,?,?)";
+            String sql = "INSERT INTO Restaurant (resID, resName, resAddress, resDescFood, userLoginName) "
+                    + "VALUES (?,?,?,?,?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, prmObjRestaurant.getResID());
             pstmt.setString(2, prmObjRestaurant.getResName());
             pstmt.setString(3, prmObjRestaurant.getResAddress());
             pstmt.setString(4, prmObjRestaurant.getResDescFood());
+            pstmt.setString(5, prmObjRestaurant.getUserLoginName());
         } catch (SQLException ex) {
             Logger.getLogger(IRestaurantRepository.class.getName()).log(Level.SEVERE, "Error al insertar el Restaurante", ex);
         }
@@ -77,4 +79,5 @@ public class RestaurantRepository implements IRestaurantRepository {
         //TODO:
         return null;
     }
+    
 }

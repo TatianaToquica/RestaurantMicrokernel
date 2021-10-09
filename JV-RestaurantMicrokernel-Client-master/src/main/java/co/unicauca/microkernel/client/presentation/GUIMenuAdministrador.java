@@ -18,14 +18,17 @@ import javax.swing.JOptionPane;
 public class GUIMenuAdministrador extends JFrame {
 
     UserRepository service;
+    private String loginName;
     /** Creates new form GUIRegistrarUsuario */
     public GUIMenuAdministrador() {
         initComponents();
         this.service = service;
         setLocationRelativeTo(null);
-        setSize(510, 400);
+        
     }
-
+    public void LoginUsuario(String login) {
+        loginName = login;
+    } 
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -35,67 +38,85 @@ public class GUIMenuAdministrador extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lbl_MenuAdministrador = new javax.swing.JLabel();
         btn_editarMenuEspecial = new javax.swing.JButton();
         btn_AgregarComp = new javax.swing.JButton();
-        btn_ListarComp = new javax.swing.JButton();
-        btn_ListarPlatos = new javax.swing.JButton();
         btn_editarMenuDia = new javax.swing.JButton();
         btn_agregarPlato = new javax.swing.JButton();
         Btn_CerrarSesion = new javax.swing.JButton();
+        lbl_MenuAdministrador = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbl_MenuAdministrador.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
-        lbl_MenuAdministrador.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_MenuAdministrador.setText("Menu Administrador");
-        lbl_MenuAdministrador.setDoubleBuffered(true);
-        getContentPane().add(lbl_MenuAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, -1, -1));
-
+        btn_editarMenuEspecial.setBackground(new java.awt.Color(0, 0, 255));
+        btn_editarMenuEspecial.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 18)); // NOI18N
         btn_editarMenuEspecial.setText("Menú Especial");
-        getContentPane().add(btn_editarMenuEspecial, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, 140, -1));
+        btn_editarMenuEspecial.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(btn_editarMenuEspecial, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 230, -1));
 
+        btn_AgregarComp.setBackground(new java.awt.Color(0, 0, 255));
+        btn_AgregarComp.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 18)); // NOI18N
         btn_AgregarComp.setText("Agregar Componente");
+        btn_AgregarComp.setToolTipText("Registrar los componentes que ofrecerá en su restaurante.");
+        btn_AgregarComp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_AgregarComp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_AgregarCompActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_AgregarComp, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 140, -1));
+        getContentPane().add(btn_AgregarComp, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 230, -1));
 
-        btn_ListarComp.setText("Listar Componentes");
-        getContentPane().add(btn_ListarComp, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 140, -1));
-
-        btn_ListarPlatos.setText("Listar Platos Especiales");
-        getContentPane().add(btn_ListarPlatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, -1, -1));
-
+        btn_editarMenuDia.setBackground(new java.awt.Color(0, 0, 255));
+        btn_editarMenuDia.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 18)); // NOI18N
         btn_editarMenuDia.setText(" Menú del día");
-        getContentPane().add(btn_editarMenuDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 140, -1));
+        btn_editarMenuDia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(btn_editarMenuDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 230, -1));
 
+        btn_agregarPlato.setBackground(new java.awt.Color(0, 0, 255));
+        btn_agregarPlato.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 18)); // NOI18N
         btn_agregarPlato.setText("Agregar Plato Especial");
+        btn_agregarPlato.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_agregarPlato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_agregarPlatoActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_agregarPlato, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 140, -1));
+        getContentPane().add(btn_agregarPlato, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 230, -1));
 
-        Btn_CerrarSesion.setBackground(new java.awt.Color(0, 0, 0));
-        Btn_CerrarSesion.setForeground(new java.awt.Color(0, 0, 153));
+        Btn_CerrarSesion.setBackground(new java.awt.Color(0, 0, 255));
+        Btn_CerrarSesion.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 18)); // NOI18N
+        Btn_CerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
         Btn_CerrarSesion.setText("Cerrar Sesión");
+        Btn_CerrarSesion.setToolTipText("");
+        Btn_CerrarSesion.setBorder(null);
+        Btn_CerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Btn_CerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_CerrarSesionActionPerformed(evt);
             }
         });
-        getContentPane().add(Btn_CerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 340, -1, -1));
+        getContentPane().add(Btn_CerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 325, 120, 30));
+
+        lbl_MenuAdministrador.setFont(new java.awt.Font("Britannic Bold", 1, 24)); // NOI18N
+        lbl_MenuAdministrador.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_MenuAdministrador.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_MenuAdministrador.setText("Menu Administrador");
+        lbl_MenuAdministrador.setDoubleBuffered(true);
+        getContentPane().add(lbl_MenuAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
+
+        jPanel2.setBackground(new java.awt.Color(0, 0, 255));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 340, 70));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 340, 370));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_AgregarCompActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AgregarCompActionPerformed
-       GUIAgregarComponentes guiComponent = new GUIAgregarComponentes (); 
+       GUIAgregarComponentes guiComponent = new GUIAgregarComponentes (loginName); 
        this.setVisible (false);        
        guiComponent.setVisible (true); 
        this.dispose();
@@ -109,7 +130,7 @@ public class GUIMenuAdministrador extends JFrame {
     }//GEN-LAST:event_Btn_CerrarSesionActionPerformed
 
     private void btn_agregarPlatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarPlatoActionPerformed
-       GUIAgregarPlatoEspecial guiDish = new GUIAgregarPlatoEspecial(); 
+       GUIAgregarPlatoEspecial guiDish = new GUIAgregarPlatoEspecial(loginName); 
        this.setVisible (false);        
        guiDish.setVisible (true); 
        this.dispose();
@@ -154,11 +175,11 @@ public class GUIMenuAdministrador extends JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_CerrarSesion;
     private javax.swing.JButton btn_AgregarComp;
-    private javax.swing.JButton btn_ListarComp;
-    private javax.swing.JButton btn_ListarPlatos;
     private javax.swing.JButton btn_agregarPlato;
     private javax.swing.JButton btn_editarMenuDia;
     private javax.swing.JButton btn_editarMenuEspecial;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbl_MenuAdministrador;
     // End of variables declaration//GEN-END:variables
 

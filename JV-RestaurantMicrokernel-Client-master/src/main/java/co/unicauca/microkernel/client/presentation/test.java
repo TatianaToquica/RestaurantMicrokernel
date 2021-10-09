@@ -12,6 +12,8 @@ import co.unicauca.microkernel.common.entities.Component;
 import co.unicauca.microkernel.common.entities.Dish;
 import co.unicauca.microkernel.common.entities.User;
 import co.unicauca.microkernel.common.infra.Utilities;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -26,6 +28,7 @@ public class test {
      */
     public static void main(String[] args) {
         String re = "";
+        
         try {
               /**
             Component comp = new Component(1, "frijoles", 2000, "principio", Utilities.convertirFoto("C:\\Users\\HP\\Pictures\\espuma\\2.png"));
@@ -54,6 +57,7 @@ public class test {
             User usuario =new User("pedrito","pedrito" ,"Pedro","Lopez","cra2 #2-34","3214543212","pedro@gmail.com","cliente");
             re = servicioRestaurante.createUser(usuario);
             System.out.println(re); 
+            
             
         } catch (Exception e) {
         }

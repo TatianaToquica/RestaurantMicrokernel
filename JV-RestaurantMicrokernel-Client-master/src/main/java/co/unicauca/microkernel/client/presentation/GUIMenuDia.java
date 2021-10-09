@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Libardo Pantoja, Daniel Paz
  *
  */
-public class GUIListadoComponentes extends javax.swing.JFrame {
+public class GUIMenuDia extends javax.swing.JFrame {
 
     /**
      * Instancia de la gestion de componentes     
@@ -23,18 +23,18 @@ public class GUIListadoComponentes extends javax.swing.JFrame {
     /**
      * Constructor
      */
-    public GUIListadoComponentes() {
+    public GUIMenuDia() {
         this.service = service;
         initComponents();
         setSize(870, 300);
-        loadDataTable();      
+        //loadDataTable();      
         setLocationRelativeTo(null);
     }
 
     
     /**
      * Carga los componentes en el jTable
-     */
+     
     private void loadDataTable() {
       
         List<Component> components = service.findAllComponentes();
@@ -48,7 +48,7 @@ public class GUIListadoComponentes extends javax.swing.JFrame {
             modelTable.addRow(fila);
         }
     }
-
+     */
     /**
      * Elimina las filas del jTable
      *
@@ -124,7 +124,7 @@ public class GUIListadoComponentes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseActionPerformed
     
     public static void main(String[] args) {
-        GUIListadoComponentes gui = new GUIListadoComponentes();
+        GUIMenuDia gui = new GUIMenuDia();
         gui.setVisible(true);
     }
 

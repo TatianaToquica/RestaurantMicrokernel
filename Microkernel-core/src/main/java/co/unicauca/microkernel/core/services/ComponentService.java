@@ -7,6 +7,7 @@ package co.unicauca.microkernel.core.services;
 
 import co.unicauca.microkernel.common.entities.Component;
 import co.unicauca.microkernel.core.domain.IComponentRepository;
+import java.util.List;
 
 /**
  *
@@ -24,12 +25,18 @@ public class ComponentService {
         return repository.createComponente(prmObjComponente);
     }
    
-    public String deleteComponente(int prmcompId) {
+    public String deleteComponente(String prmCompName) {
         //hacer validaciones aqui
-        return repository.deleteComponente(prmcompId);
+        return repository.deleteComponente(prmCompName);
     }
     public String updateComponente(Component prmObjComponente){
         //hacer validaciones aqui
         return repository.updateComponente(prmObjComponente);
     }
+    public String findComponente(String prmCompName){
+        return repository.findComponente(prmCompName);
+    }
+     public String findAllComponentes(String LoginAdmin){
+         return repository.findAllComponentes(LoginAdmin);
+     }
 }

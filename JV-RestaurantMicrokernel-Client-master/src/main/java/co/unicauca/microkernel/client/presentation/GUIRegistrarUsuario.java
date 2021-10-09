@@ -70,6 +70,8 @@ public class GUIRegistrarUsuario extends javax.swing.JFrame {
         cbx_tipoUser = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         Btn_Atras = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 255));
@@ -112,15 +114,21 @@ public class GUIRegistrarUsuario extends javax.swing.JFrame {
         getContentPane().add(txtUserAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 119, -1));
         getContentPane().add(txtUserPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, 119, -1));
 
+        btnRegistarUsuario.setBackground(new java.awt.Color(0, 0, 255));
+        btnRegistarUsuario.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 18)); // NOI18N
+        btnRegistarUsuario.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistarUsuario.setText("Registrarse");
+        btnRegistarUsuario.setBorder(null);
+        btnRegistarUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegistarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistarUsuarioActionPerformed(evt);
             }
         });
-        getContentPane().add(btnRegistarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, -1, -1));
+        getContentPane().add(btnRegistarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, 110, 30));
 
-        jLabel6.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Britannic Bold", 1, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Registro de Usuario");
         jLabel6.setDoubleBuffered(true);
@@ -133,13 +141,26 @@ public class GUIRegistrarUsuario extends javax.swing.JFrame {
         jLabel7.setText("Tipo Usuario:*");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
 
-        Btn_Atras.setText("Atrás");
+        Btn_Atras.setBackground(new java.awt.Color(0, 0, 255));
+        Btn_Atras.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 18)); // NOI18N
+        Btn_Atras.setForeground(new java.awt.Color(255, 255, 255));
+        Btn_Atras.setText("<----");
+        Btn_Atras.setToolTipText("retroceder una pagina");
+        Btn_Atras.setAutoscrolls(true);
+        Btn_Atras.setBorder(null);
+        Btn_Atras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Btn_Atras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_AtrasActionPerformed(evt);
             }
         });
-        getContentPane().add(Btn_Atras, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, -1, -1));
+        getContentPane().add(Btn_Atras, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 350, 60, 30));
+
+        jPanel2.setBackground(new java.awt.Color(0, 51, 255));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 60));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 400));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -153,7 +174,7 @@ public class GUIRegistrarUsuario extends javax.swing.JFrame {
         usuario.setUserMobile(txtUserMobile.getText());
         usuario.setUserEmail(txtUserEmail.getText());
         usuario.setUserType(cbx_tipoUser.getSelectedItem().toString());
-        
+                    
             String varLogin;
             String usuarioCreado;
         try {
@@ -228,6 +249,8 @@ public class GUIRegistrarUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblUserEmail;
     private javax.swing.JLabel lblUserLastName;
     private javax.swing.JLabel lblUserName;

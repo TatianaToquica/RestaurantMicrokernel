@@ -65,6 +65,7 @@ public class RestaurantServidorSocket implements Runnable{
     private DishService serviceDish;
     private UserService serviceUser;
     
+    
     public RestaurantServidorSocket() {
         //inyeccion de dependencias par hacer la inyeccion
         IComponentRepository componentRepo = Factory.getInstance().getComponentRepository();
@@ -176,8 +177,14 @@ public class RestaurantServidorSocket implements Runnable{
                 if (protocolRequest.getAction().equals("postComponente")) {
                     administradorRegistrarComponente(protocolRequest);
                 }
+                if (protocolRequest.getAction().equals("postListarComponentes")) {
+                    administradorListarComponentes(protocolRequest);
+                }
                 if (protocolRequest.getAction().equals("postPlatoEspecial")) {
                     administradorRegistrarPlatoEspecial(protocolRequest);
+                }
+                if (protocolRequest.getAction().equals("postListarPlatos")) {
+                    administradorListarDish(protocolRequest);
                 }
                 if (protocolRequest.getAction().equals("updateComponente")) {
                     administradorUpdateComponent(protocolRequest);
@@ -202,7 +209,10 @@ public class RestaurantServidorSocket implements Runnable{
                 if (protocolRequest.getAction().equals("postValidateTypeUser")) {
                     sistemaValidateTypeUser(protocolRequest);
                 }
-                
+                if (protocolRequest.getAction().equals("postFindComponent")) {
+                    sistemaFindComponent(protocolRequest);
+                }
+                               
                 
         }
     }
@@ -216,6 +226,7 @@ public class RestaurantServidorSocket implements Runnable{
         comp.setCompType(protocolRequest.getParameters().get(2).getValue());
         comp.setCompPrice(Integer.parseInt(protocolRequest.getParameters().get(3).getValue()));
         comp.setCompImage(protocolRequest.getBytes());
+        comp.setUserLoginName(protocolRequest.getParameters().get(4).getValue());
         //hacer validacion para esta, es decir sobre el parseo del dato
         String response;
         //el servicio comunicara con la base de datos,
@@ -238,15 +249,15 @@ public class RestaurantServidorSocket implements Runnable{
     }
     private void administradorDeleteComponent(Protocol protocolRequest) {
         //creo el id de la racion
-        int compId;
+        String compName;
         //se asignan los atributos de la instancia, segun los valores de los parametros
         //el orden debe ser exacto
-        compId = (Integer.parseInt(protocolRequest.getParameters().get(0).getValue()));
+        compName = (protocolRequest.getParameters().get(0).getValue());
         //hacer validacion para esta, es decir sobre el parseo del dato
         String response = null;
         //el servicio comunicara con la base de datos,
         //se pasa el plato creado, y servicio llamara al repositorio
-        response = serviceComponent.deleteComponente(compId);
+        response = serviceComponent.deleteComponente(compName);
         output.println(response);
     }
     private void administradorRegistrarPlatoEspecial(Protocol protocolRequest) {
@@ -333,7 +344,16 @@ public class RestaurantServidorSocket implements Runnable{
         response = serviceUser.validateTypeUser(prmUserLoginName,prmUserType);
         output.println(response);
     }
-    
+    private void sistemaFindComponent(Protocol protocolRequest) {
+        String prmcompName;
+        
+        prmcompName = (protocolRequest.getParameters().get(0).getValue());
+        String response = null;
+        //el servicio comunicara con la base de datos,
+        //se pasa el componente creado, y servicio llamara al repositorio
+        response = serviceComponent.findComponente(prmcompName);
+        output.println(response);
+    }
     /**
      * Genera un ErrorJson genérico en caso de fallar alguna solicitud no
      * controlada.
@@ -365,6 +385,22 @@ public class RestaurantServidorSocket implements Runnable{
         socket.close();
     }      
 
-    
+    private void administradorListarComponentes(Protocol protocolRequest) {
+        String LoginAdmin = protocolRequest.getParameters().get(0).getValue();
+        
+        String response;
+        response = serviceComponent.findAllComponentes(LoginAdmin);
+        output.println(response);
+    }
+
+    private void administradorListarDish(Protocol protocolRequest) {
+        String LoginAdmin = protocolRequest.getParameters().get(0).getValue();
+        
+        String response;
+        response = serviceDish.findAllDish(LoginAdmin);
+        output.println(response);
+    }
+
+      
     
 }

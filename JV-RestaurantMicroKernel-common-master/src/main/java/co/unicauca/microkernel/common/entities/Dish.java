@@ -26,6 +26,10 @@ public class Dish {
      * array de bytes que representan la imagen del plato
      */
     private byte [] dishImage;
+    /**
+     * login del admin
+     */
+    private String  userLoginName;
     // </editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Constructores">
      /**
@@ -41,12 +45,13 @@ public class Dish {
      * @param dishPrice Precio del plato
      * @param dishImage Imagen del plato
      */
-    public Dish(int dishID, String dishName, String dishDescription, int dishPrice, byte[] dishImage) {
+    public Dish(int dishID, String dishName, String dishDescription, int dishPrice, byte[] dishImage, String userLoginName) {
         this.dishID = dishID;
         this.dishName = dishName;
         this.dishDescription = dishDescription;
         this.dishPrice = dishPrice;
         this.dishImage = dishImage;
+        this.userLoginName = userLoginName;
     }
     // </editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters">
@@ -85,6 +90,9 @@ public class Dish {
     public byte[] getDishImage() {
         return dishImage;
     }
+    public String getUserLoginName() {
+        return userLoginName;
+    }
     // </editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Setters">
     /**
@@ -121,6 +129,9 @@ public class Dish {
      */
     public void setDishImage(byte[] dishImage) {
         this.dishImage = dishImage;
+    }
+    public void setUserLoginName(String userLoginName) {
+        this.userLoginName = userLoginName;
     }
     // </editor-fold> 
 }

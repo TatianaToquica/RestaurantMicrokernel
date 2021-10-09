@@ -18,7 +18,7 @@ public interface IComponentRepository {
      * @param prmcompId identificador del plato
      * @return Id del componente borrado
      */
-    public String deleteComponente(int prmcompId);
+    public String deleteComponente(String prmCompName);
     /**
      * Actualiza la información de un componente
      * @param prmObjComponente Plato a modificar
@@ -26,11 +26,12 @@ public interface IComponentRepository {
      */
     public String updateComponente(Component prmObjComponente);
     
+    public String findComponente(String prmCompName);
     /**
      * Encuentra todos los componentes      
      * @return Lista de Componentes
      */
-    public List<Component> findAllComponentes();
+    public String findAllComponentes(String LoginAdmin);
     
    
 

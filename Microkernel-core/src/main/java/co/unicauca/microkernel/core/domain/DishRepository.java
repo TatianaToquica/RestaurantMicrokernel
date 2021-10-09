@@ -5,13 +5,16 @@
  */
 package co.unicauca.microkernel.core.domain;
 
+import co.unicauca.microkernel.common.entities.Component;
 import co.unicauca.microkernel.common.entities.Dish;
 import co.unicauca.microkernel.common.infra.Utilities;
+import com.google.gson.Gson;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -81,19 +84,20 @@ public class DishRepository implements IDishRepository{
     //<editor-fold defaultstate="collapsed" desc="Métodos sobre-escritos">
     @Override
     public String createDish(Dish prmObjPlato) {
-        String resultado="Fallo crear Componente";
+        String resultado="Fallo crear Plato";
         try {
             this.connect();
-            String sql = "INSERT INTO Dish (dishID, dishName, dishDescription, dishPrice, dishImage) "
-                    + "VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO Dish (dishID, dishName, dishDescription, dishPrice, dishImage , userLoginName) "
+                    + "VALUES (?,?,?,?,?,?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, prmObjPlato.getDishID());
             pstmt.setString(2, prmObjPlato.getDishName());
             pstmt.setString(3, prmObjPlato.getDishDescription());
             pstmt.setInt(4, (int) prmObjPlato.getDishPrice()); //BD float clase double
             pstmt.setBytes(5, prmObjPlato.getDishImage());
-            pstmt.executeUpdate();
-             resultado=prmObjPlato.getDishName();
+            pstmt.setString(6, prmObjPlato.getUserLoginName());
+            pstmt.execute();
+            resultado=prmObjPlato.getDishName();
             pstmt.close();
             this.disconnect();
         } catch (SQLException ex) {
@@ -166,9 +170,40 @@ public class DishRepository implements IDishRepository{
         }
         return prmObjPlato.getDishName();
     }
-    
+
     @Override
-    public List<Dish> findAllDish() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String findAllDish(String LoginAdmin) {
+        List<Dish> list=new ArrayList<>();
+        String response="null";
+        System.out.println("Listar Platos especiales");
+        try{
+            this.connect();            
+            String sql = "SELECT dishID, dishName, dishDescription, dishPrice, dishImage , userLoginName FROM Dish WHERE userLoginName=?";
+            PreparedStatement pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1,LoginAdmin);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {      
+                Dish plate = new Dish(Integer.parseInt(rs.getString(1)),rs.getString(2),rs.getString(3),Integer.parseInt(rs.getString(4)),rs.getBytes(5),rs.getString(6));
+                list.add(plate);
+            }
+            response=listMenuToJson(list);
+            pstmt.close();
+            this.disconnect();
+        }catch (SQLException ex) {
+            Logger.getLogger(ComponentRepository.class.getName()).log(Level.SEVERE, "Error al listar los Componentes", ex);
+        }
+        return response;
     }
+    /**
+     * Convierte una lista de tipo plato en un json
+     *
+     * @param list
+     * @return
+     */
+    public String listMenuToJson(List list) {
+        Gson gson = new Gson();
+        String response = gson.toJson(list);
+        return response;
+    }
+    
 }

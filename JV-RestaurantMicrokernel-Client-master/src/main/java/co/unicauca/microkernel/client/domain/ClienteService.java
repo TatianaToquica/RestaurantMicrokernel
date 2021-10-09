@@ -9,6 +9,7 @@ import co.unicauca.microkernel.client.access.IClienteAccess;
 import co.unicauca.microkernel.common.entities.Component;
 import co.unicauca.microkernel.common.entities.Dish;
 import co.unicauca.microkernel.common.entities.User;
+import java.util.List;
 
 /**
  *
@@ -24,18 +25,28 @@ public class ClienteService {
     public String createComponente(Component component) throws Exception{
         return this.service.createComponente(component);
     }
+    public String deleteComponente(String prmCompName) throws Exception{
+         return this.service.deleteComponente(prmCompName);
+    }
+    public String findComponente(String prmCompName)throws Exception{
+        return this.service.findComponente(prmCompName);
+    }
+    public List<Component> findAllComponentes(String LoginAdmin)throws Exception{
+        return this.service.findAllComponentes(LoginAdmin);
+    }
+    
+     
     public String createDish(Dish plate) throws Exception{
         return this.service.createDish(plate);
-    }
-     public String deleteComponente(int prmcompId) throws Exception{
-         return this.service.deleteComponente(prmcompId);
-    }
+    }    
     public String deleteDish(int prmPlateID) throws Exception{
         return this.service.deleteDish(prmPlateID);
+    }    
+    public List<Dish> findAllDish(String LoginAdmin)throws Exception{
+        return this.service.findAllDish(LoginAdmin);
     }
-    public Dish findDish(int prmPlateID)throws Exception{
-        return this.service.findDish(prmPlateID);
-    }
+    
+    
     public String createUser(User prmObjUser)throws Exception{
         return this.service.createUser(prmObjUser);
     }
