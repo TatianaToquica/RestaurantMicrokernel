@@ -58,5 +58,9 @@ public class Factory {
         IDishRepository result = new DishRepository();
         return result;
     }
+    public IMenuDiaRepository getMenuDiaRepository(){
+        IMenuDiaRepository result = new MenuDiaRepository();
+        return result;
+    } 
 //</editor-fold>
 }

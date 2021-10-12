@@ -6,6 +6,7 @@
 package co.unicauca.microkernel.client.access;
 
 import co.unicauca.microkernel.common.entities.Component;
+import co.unicauca.microkernel.common.entities.DayMenu;
 import co.unicauca.microkernel.common.entities.Dish;
 import co.unicauca.microkernel.common.entities.User;
 import java.util.List;
@@ -32,4 +33,7 @@ public interface IClienteAccess {
     public String findUser(String prmUserLoginName)throws Exception;
     public String validateUser(String prmUserLoginName, String prmUserPassword)throws Exception;
     public String validateTypeUser(String prmUserLoginName, String prmUserType)throws Exception;
+    
+    public String createMenuDia(DayMenu menu)throws Exception;
+    public List<Component> findCompDia(String dia, String LoginAdmin)throws Exception;
 }

@@ -7,6 +7,7 @@ package co.unicauca.microkernel.client.domain;
 
 import co.unicauca.microkernel.client.access.IClienteAccess;
 import co.unicauca.microkernel.common.entities.Component;
+import co.unicauca.microkernel.common.entities.DayMenu;
 import co.unicauca.microkernel.common.entities.Dish;
 import co.unicauca.microkernel.common.entities.User;
 import java.util.List;
@@ -61,5 +62,11 @@ public class ClienteService {
     }
     public String validateTypeUser(String prmUserLoginName, String prmUserType)throws Exception{
         return this.service.validateTypeUser(prmUserLoginName, prmUserType);
+    }
+    public String createMenuDia(DayMenu menu)throws Exception{
+        return this.service.createMenuDia(menu);
+    }
+    public List<Component> findCompDia(String dia, String LoginAdmin)throws Exception{
+        return this.service.findCompDia(dia, LoginAdmin);
     }
 }

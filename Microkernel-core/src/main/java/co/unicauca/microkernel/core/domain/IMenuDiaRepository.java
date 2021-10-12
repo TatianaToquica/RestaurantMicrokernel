@@ -5,18 +5,15 @@
  */
 package co.unicauca.microkernel.core.domain;
 
+import co.unicauca.microkernel.common.entities.Component;
+import co.unicauca.microkernel.common.entities.DayMenu;
+
 /**
  *
  * @author HP
  */
 public interface IMenuDiaRepository {
-    /**
-     * Crea Menu dia
-     * @param prmcompId id del componente
-     * @param prmDia dia en el que sera ofertado el componente
-     * @param LoginAdmin login del administrador del restaurante
-     * @return ID del componente creado
-     */
-    public String createMenuDia(int prmcompId,String prmDia,String LoginAdmin);
     
+    public String createMenuDia(DayMenu menu);
+    public String findCompDia(String dia, String LoginAdmin);
 }

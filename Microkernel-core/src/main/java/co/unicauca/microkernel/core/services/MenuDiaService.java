@@ -5,6 +5,7 @@
  */
 package co.unicauca.microkernel.core.services;
 
+import co.unicauca.microkernel.common.entities.DayMenu;
 import co.unicauca.microkernel.core.domain.IMenuDiaRepository;
 
 /**
@@ -17,10 +18,10 @@ public class MenuDiaService {
     public MenuDiaService(IMenuDiaRepository repository){
         this.repository = repository;
     }
-    /**
-    public String createComponente(MenuDia prmObjComponente){
-        //hacer validaciones aqui
-        return repository.createComponente(prmObjComponente);
+    public String createMenuDia(DayMenu menu){
+        return repository.createMenuDia(menu);
     }
-     */
+    public String findCompDia(String dia, String LoginAdmin){
+        return repository.findCompDia(dia, LoginAdmin);
+    }
 }

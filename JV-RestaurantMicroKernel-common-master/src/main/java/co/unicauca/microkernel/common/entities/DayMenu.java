@@ -17,7 +17,7 @@ public class DayMenu {
     /**
      * identificador del restaurante al cual está adscrito el menú
      */
-    private String resID;
+    private String userLoginName;
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Constructores">
     /**
@@ -27,14 +27,14 @@ public class DayMenu {
     }
     /**
      * Constructor parametrizado de la calse DayMenu
-     * @param dmenID Identificador
+     * @param dmenCompID Identificador
      * @param dmenDay día del menú
-     * @param resID Identificador del restaurante
+     * @param userLoginName Identificador del administrador
      */
-    public DayMenu(int dmenCompID, String dmenDay, String resID) {
+    public DayMenu(int dmenCompID, String dmenDay, String userLoginName) {
         this.dmenCompID = dmenCompID;
         this.dmenDay = dmenDay;
-        this.resID = resID;
+        this.userLoginName = userLoginName;
     }
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters">
@@ -56,9 +56,10 @@ public class DayMenu {
      * Obtiene el ID del restaurante adscrito al menú
      * @return 
      */
-    public String getResID() {
-        return resID;
+    public String getUserLoginName() {    
+        return userLoginName;
     }
+
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Setters">
     /**
@@ -76,12 +77,11 @@ public class DayMenu {
     public void setDmenDay(String dmenDay) {
         this.dmenDay = dmenDay;
     }
-    /**
-     * Modifica el ID del restaurante adscrito al menú 
-     * @param resID nuevo identificador del restaurante
-     */
-    public void setResID(String resID) {
-        this.resID = resID;
+
+    public void setUserLoginName(String userLoginName) {
+        this.userLoginName = userLoginName;
     }
+    
+    
 //</editor-fold>
 }

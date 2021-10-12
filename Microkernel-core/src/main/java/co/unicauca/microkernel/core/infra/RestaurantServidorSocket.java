@@ -1,6 +1,7 @@
 package co.unicauca.microkernel.core.infra;
 
 import co.unicauca.microkernel.common.entities.Component;
+import co.unicauca.microkernel.common.entities.DayMenu;
 import co.unicauca.microkernel.common.entities.Dish;
 import co.unicauca.microkernel.common.entities.User;
 import co.unicauca.microkernel.common.infra.JsonError;
@@ -9,9 +10,11 @@ import co.unicauca.microkernel.common.infra.Utilities;
 import co.unicauca.microkernel.core.domain.Factory;
 import co.unicauca.microkernel.core.domain.IComponentRepository;
 import co.unicauca.microkernel.core.domain.IDishRepository;
+import co.unicauca.microkernel.core.domain.IMenuDiaRepository;
 import co.unicauca.microkernel.core.domain.IUserRepository;
 import co.unicauca.microkernel.core.services.ComponentService;
 import co.unicauca.microkernel.core.services.DishService;
+import co.unicauca.microkernel.core.services.MenuDiaService;
 import co.unicauca.microkernel.core.services.UserService;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -59,6 +62,7 @@ public class RestaurantServidorSocket implements Runnable{
     private ComponentService serviceComponent;
     private DishService serviceDish;
     private UserService serviceUser;
+    private MenuDiaService serviceMenuDia;
     
     
     public RestaurantServidorSocket() {
@@ -69,6 +73,8 @@ public class RestaurantServidorSocket implements Runnable{
         serviceDish = new DishService(dishRepo);
         IUserRepository userRepo = Factory.getInstance().getUserRepository();
         serviceUser = new UserService(userRepo);
+        IMenuDiaRepository menDiaRepo = Factory.getInstance().getMenuDiaRepository();
+        serviceMenuDia = new MenuDiaService(menDiaRepo);
         //codificar plato, restaurante...
     }
     /**
@@ -189,6 +195,12 @@ public class RestaurantServidorSocket implements Runnable{
                 }
                 if (protocolRequest.getAction().equals("deleteDish")) {
                     administradorDeleteDish(protocolRequest);
+                }
+                if (protocolRequest.getAction().equals("postCrearMenuDia")) {
+                    administradorRegistrarMenuDia(protocolRequest);
+                }
+                if (protocolRequest.getAction().equals("postListarMenuDia")) {
+                    administradorMenuDia(protocolRequest);
                 }
                 break;
             case "sistema":
@@ -412,6 +424,32 @@ public class RestaurantServidorSocket implements Runnable{
         output.println(response);
     }
 
-      
-    
+    private void administradorMenuDia(Protocol protocolRequest) {
+        String prmDia;
+        String prmUserLoginName;
+        prmDia = (protocolRequest.getParameters().get(0).getValue());
+        prmUserLoginName  = (protocolRequest.getParameters().get(1).getValue());
+        String response = null;
+        //el servicio comunicara con la base de datos,
+        //se pasa el plato creado, y servicio llamara al repositorio
+        response = serviceMenuDia.findCompDia(prmDia, prmUserLoginName);
+        output.println(response);
+    }
+
+    private void administradorRegistrarMenuDia(Protocol protocolRequest) {
+        //crea la instancia
+        DayMenu menu = new DayMenu();
+        //se asignan los atributos de la instancia, segun los valores de los parametros
+        //el orden debe ser exacto
+        menu.setDmenCompID(Integer.parseInt(protocolRequest.getParameters().get(0).getValue()));
+        menu.setDmenDay(protocolRequest.getParameters().get(1).getValue());
+        menu.setUserLoginName(protocolRequest.getParameters().get(2).getValue());
+        
+        //hacer validacion para esta, es decir sobre el parseo del dato
+        String response;
+        //el servicio comunicara con la base de datos,
+        //se pasa el plato creado, y servicio llamara al repositorio
+        response = serviceMenuDia.createMenuDia(menu);
+        output.println(response);
+    }    
 }

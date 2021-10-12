@@ -1,3 +1,4 @@
+co\unicauca\microkernel\client\access\ClienteAccessSocket$3.class
 co\unicauca\microkernel\client\presentation\GUISelectorTipoUser$4.class
 co\unicauca\microkernel\client\presentation\GUIMenuDia$3.class
 co\unicauca\microkernel\client\presentation\GUIMenuClient.class
@@ -27,6 +28,7 @@ co\unicauca\microkernel\client\presentation\GUIMenuClient$1.class
 co\unicauca\microkernel\client\presentation\GUIRegistrarUsuario.class
 co\unicauca\microkernel\client\presentation\GUIAgregarComponentes$1.class
 co\unicauca\microkernel\client\presentation\GUIAgregarPlatoEspecial$1.class
+co\unicauca\microkernel\client\presentation\GUIMenuDia$5.class
 co\unicauca\microkernel\client\presentation\GUISelectorTipoUser$2.class
 co\unicauca\microkernel\client\infra\ServidorSocket.class
 co\unicauca\microkernel\client\access\ClienteAccessSocket$1.class

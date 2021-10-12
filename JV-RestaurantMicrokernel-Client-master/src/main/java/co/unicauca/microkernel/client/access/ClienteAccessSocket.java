@@ -3,6 +3,7 @@ package co.unicauca.microkernel.client.access;
 
 import co.unicauca.microkernel.client.infra.ServidorSocket;
 import co.unicauca.microkernel.common.entities.Component;
+import co.unicauca.microkernel.common.entities.DayMenu;
 import co.unicauca.microkernel.common.entities.Dish;
 import co.unicauca.microkernel.common.entities.User;
 import co.unicauca.microkernel.common.infra.JsonError;
@@ -387,4 +388,64 @@ public class ClienteAccessSocket implements IClienteAccess {
         return requestJson;
 
     }
+
+    @Override
+    public String createMenuDia(DayMenu menu) throws Exception {
+        String jsonResponse = null;
+        //devuelve un string en formato Json que lo que se enviara
+        String requestJson = addCompMenuDia(menu);
+        if((this.procesarConexion(requestJson).equals("FALLO"))){
+            return "FALLO";
+        }
+        return valueOf(menu.getDmenDay());
+    }
+    
+    private String addCompMenuDia(DayMenu instancia){
+        Protocol protocol = new Protocol();
+        protocol.setResource("administrador");
+        protocol.setAction("postCrearMenuDia");
+        protocol.addParameter("compID", String.valueOf(instancia.getDmenCompID()));
+        protocol.addParameter("dmenday", String.valueOf(instancia.getDmenDay()));
+        protocol.addParameter("userLoginName", String.valueOf(instancia.getUserLoginName()));
+        
+        Gson gson = new Gson();
+        String requestJson = gson.toJson(protocol);
+        System.out.println("json: "+requestJson);
+        return requestJson;
+    }
+    
+
+    @Override
+    public List<Component> findCompDia(String dia, String LoginAdmin) throws Exception {
+        var respJson = findCompDiaJson(dia,LoginAdmin);
+        System.out.println("AccsesSocket: "+respJson);
+        var response = procesarConexion(respJson);          
+        return jsonListCompMenDia(response);
+    }
+    private String findCompDiaJson(String dia, String LoginAdmin){
+        var protocol = new Protocol();
+        protocol.setResource("administrador");
+        protocol.setAction("postListarMenuDia");
+        protocol.addParameter("dmenday", dia);
+        protocol.addParameter("userLoginName", LoginAdmin);
+        
+        var gson = new Gson();
+        var requestJson = gson.toJson(protocol);
+        out.println("json: "+requestJson);
+
+        return requestJson;
+
+    }
+    /**
+     * Convierte un json en una lista de tipo Plato especial
+     * 
+     * @param jsonListCompMenDia
+     * @return 
+     */
+    private List<Component> jsonListCompMenDia(String jsonListCompMenDia){
+        var gson=new Gson();
+        var list = new TypeToken<List<Component>>(){}.getType();
+        return gson.fromJson(jsonListCompMenDia, list);
+    }
+    
 }
