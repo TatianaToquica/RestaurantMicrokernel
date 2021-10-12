@@ -44,6 +44,7 @@ public class Dish {
      * @param dishDescription Descripción del plato
      * @param dishPrice Precio del plato
      * @param dishImage Imagen del plato
+     * @param userLoginName
      */
     public Dish(int dishID, String dishName, String dishDescription, int dishPrice, byte[] dishImage, String userLoginName) {
         this.dishID = dishID;

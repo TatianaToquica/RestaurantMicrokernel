@@ -128,7 +128,8 @@ public class ClienteAccessSocket implements IClienteAccess {
         protocol.addParameter("dishName", String.valueOf(instancia.getDishName()));
         protocol.addParameter("dishDescription", String.valueOf(instancia.getDishDescription()));
         protocol.addParameter("dishPrice", String.valueOf(instancia.getDishPrice()));
-        protocol.setBytes(instancia.getDishImage());               
+        protocol.setBytes(instancia.getDishImage());  
+        protocol.addParameter("userLoginName", String.valueOf(instancia.getUserLoginName()));
         
         Gson gson = new Gson();
         String requestJson = gson.toJson(protocol);
@@ -304,6 +305,7 @@ public class ClienteAccessSocket implements IClienteAccess {
     @Override
     public List<Component> findAllComponentes(String LoginAdmin) throws Exception {
         var respJson = findAllComponentsJson(LoginAdmin);
+        //System.out.println("AccsesSocket: "+respJson);
         var response = procesarConexion(respJson);         
         return jsonListComponents(response);
     }
@@ -335,13 +337,14 @@ public class ClienteAccessSocket implements IClienteAccess {
     @Override
     public List<Dish> findAllDish(String LoginAdmin) throws Exception {
         var respJson = findAllDishJson(LoginAdmin);
-        var response = procesarConexion(respJson);         
+        System.out.println("AccsesSocket: "+respJson);
+        var response = procesarConexion(respJson);          
         return jsonListDish(response);
     }
     private String findAllDishJson(String LoginAdmin){
         var protocol = new Protocol();
         protocol.setResource("administrador");
-        protocol.setAction("postListarDish");
+        protocol.setAction("postListarPlatos");
         protocol.addParameter("userLoginName", LoginAdmin);
         
         var gson = new Gson();
@@ -359,7 +362,29 @@ public class ClienteAccessSocket implements IClienteAccess {
      */
     private List<Dish> jsonListDish(String jsonListarDish){
         var gson=new Gson();
-        var list = new TypeToken<List<Component>>(){}.getType();
+        var list = new TypeToken<List<Dish>>(){}.getType();
         return gson.fromJson(jsonListarDish, list);
+    }
+
+    @Override
+    public String findDish(String prmDishName) throws Exception {
+        var respJson = findDishJson(prmDishName);
+        if(this.procesarConexion(respJson).equals("Fallo")){
+            return "Fallo";
+        }
+        return prmDishName;
+    }
+    private String findDishJson(String prmDishName){
+        var protocol = new Protocol();
+        protocol.setResource("sistema");
+        protocol.setAction("postFindDish");
+        protocol.addParameter("dishName", prmDishName);
+        
+        var gson = new Gson();
+        var requestJson = gson.toJson(protocol);
+        out.println("json: "+requestJson);
+
+        return requestJson;
+
     }
 }

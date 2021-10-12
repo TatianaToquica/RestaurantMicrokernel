@@ -13,22 +13,29 @@ import co.unicauca.microkernel.core.domain.IDishRepository;
  * @author HP
  */
 public class DishService {
+
     private final IDishRepository repository;
-    
-    public DishService(IDishRepository repository){
+
+    public DishService(IDishRepository repository) {
         this.repository = repository;
     }
-    
-    public String createDish(Dish prmObjPlate){
+
+    public String createDish(Dish prmObjPlate) {
         //hacer validaciones aqui
         return repository.createDish(prmObjPlate);
     }
-     public String deleteDish(int prmplatoID){
+
+    public String deleteDish(String prmDishName) {
         //hacer validaciones aqui
-        return repository.deleteDish(prmplatoID);
+        return repository.deleteDish(prmDishName);
     }
-     public String findAllDish(String LoginAdmin){
-         return repository.findAllDish(LoginAdmin);
-     }
-   
+
+    public String findDish(String prmDishName) {
+        return repository.findDish(prmDishName);
+    }
+
+    public String findAllDish(String LoginAdmin) {
+        return repository.findAllDish(LoginAdmin);
+    }
+
 }

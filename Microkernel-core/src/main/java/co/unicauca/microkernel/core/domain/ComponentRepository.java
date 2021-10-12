@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Clase que implementa a la ineterfaz del componente
+ * Clase que implementa a la interfaz del componente
  * @author Luis Arango
  */
 public class ComponentRepository implements IComponentRepository{

@@ -5,7 +5,7 @@
  */
 package co.unicauca.microkernel.core.domain;
 
-import co.unicauca.microkernel.common.entities.Component;
+
 import co.unicauca.microkernel.common.entities.Dish;
 import co.unicauca.microkernel.common.infra.Utilities;
 import com.google.gson.Gson;
@@ -60,27 +60,7 @@ public class DishRepository implements IDishRepository{
             Logger.getLogger(ComponentRepository.class.getName()).log(Level.FINER, "Error al cerrar Connection", ex);
         }
     }
-//</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Metodos de la clase">
-    public String findDish(int prmplatoID) {
-        String resultado="Fallo";
-        try {
-            this.connect();
-            String sql = "SELECT * FROM Dish WHERE dishID=?";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, prmplatoID);
-            ResultSet res = pstmt.executeQuery();
-            if (res.next()) {
-                resultado="Correcto";
-            }
-            pstmt.close();
-            this.disconnect();
-        } catch (SQLException ex) {
-            Logger.getLogger(ComponentRepository.class.getName()).log(Level.SEVERE, "Error al buscar un componente en la base de datos", ex);
-        }
-        return resultado;
-    }  
-    //</editor-fold> 
+//</editor-fold>  
     //<editor-fold defaultstate="collapsed" desc="Métodos sobre-escritos">
     @Override
     public String createDish(Dish prmObjPlato) {
@@ -101,15 +81,33 @@ public class DishRepository implements IDishRepository{
             pstmt.close();
             this.disconnect();
         } catch (SQLException ex) {
-            Logger.getLogger(ComponentRepository.class.getName()).log(Level.SEVERE, "Error al insertar el ObjDish", ex);
+            Logger.getLogger(DishRepository.class.getName()).log(Level.SEVERE, "Error al insertar el ObjDish", ex);
         }
         return resultado;
     }  
-    
     @Override
-    public String deleteDish(int prmplatoID) {
+    public String findDish(String prmDishName) {
+        String resultado="Fallo";
+        try {
+            this.connect();
+            String sql = "SELECT * FROM Dish WHERE dishName=?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, prmDishName);
+            ResultSet res = pstmt.executeQuery();
+            if (res.next()) {
+                resultado=prmDishName;
+            }
+            pstmt.close();
+            this.disconnect();
+        } catch (SQLException ex) {
+            Logger.getLogger(DishRepository.class.getName()).log(Level.SEVERE, "Error al buscar un plato especial en la base de datos", ex);
+        }
+        return resultado;
+    }
+    @Override
+    public String deleteDish(String prmDishName) {
         String resultado;
-        resultado=findDish(prmplatoID);        
+        resultado=findDish(prmDishName);        
         if (resultado!="Fallo") {
             System.out.println("EXISTE EL ELEMENTO");
         } else {
@@ -120,11 +118,11 @@ public class DishRepository implements IDishRepository{
             //primero se establece la conexion
             this.connect(); //validar cuando la conexion no sea exitosa
             //se estructura la sentencia sql en un string
-            String sql = "DELETE FROM Dish WHERE dishId = (?)";
+            String sql = "DELETE FROM Dish WHERE dishName = (?)";
             //pstmt mantendra la solicitud sobre la base de datos, se asignam sus columnas
             PreparedStatement pstmt = conn.prepareStatement(sql);
             //se compara el id, OJO Ddebe cumplir estrictamente el orden y el tipo de dato(de las tablas)
-            pstmt.setInt(1, prmplatoID);
+            pstmt.setString(1, prmDishName);
             //se ejecuta la sentencia sql
             pstmt.executeUpdate();
             //se cierra
@@ -133,15 +131,15 @@ public class DishRepository implements IDishRepository{
             this.disconnect();
 
         } catch (SQLException ex) {
-            Logger.getLogger(RestaurantRepository.class.getName()).log(Level.SEVERE, "Error al eliminar el plato", ex);
+            Logger.getLogger(DishRepository.class.getName()).log(Level.SEVERE, "Error al eliminar el plato", ex);
         }
-        return "" + prmplatoID;
+        return prmDishName;
     }
 
     @Override
     public String updateDish(Dish prmObjPlato) {
         String resultado;
-        resultado=findDish(prmObjPlato.getDishID());        
+        resultado=findDish(prmObjPlato.getDishName());        
         if (resultado!="Fallo") {
             System.out.println("EXISTE EL ELEMENTO");
         } else {
@@ -165,7 +163,7 @@ public class DishRepository implements IDishRepository{
             pstmt.close();
             this.disconnect();
         }catch (SQLException ex) {
-            Logger.getLogger(ComponentRepository.class.getName()).log(Level.SEVERE, "Error al actualizar el componente en la BD", ex);
+            Logger.getLogger(DishRepository.class.getName()).log(Level.SEVERE, "Error al actualizar el componente en la BD", ex);
             return "FALLO";
         }
         return prmObjPlato.getDishName();
@@ -190,7 +188,7 @@ public class DishRepository implements IDishRepository{
             pstmt.close();
             this.disconnect();
         }catch (SQLException ex) {
-            Logger.getLogger(ComponentRepository.class.getName()).log(Level.SEVERE, "Error al listar los Componentes", ex);
+            Logger.getLogger(DishRepository.class.getName()).log(Level.SEVERE, "Error al listar los platos", ex);
         }
         return response;
     }
@@ -205,5 +203,5 @@ public class DishRepository implements IDishRepository{
         String response = gson.toJson(list);
         return response;
     }
-    
+    //</editor-fold>     
 }

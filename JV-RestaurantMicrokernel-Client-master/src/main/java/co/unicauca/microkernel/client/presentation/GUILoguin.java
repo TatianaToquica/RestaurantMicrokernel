@@ -189,8 +189,7 @@ public class GUILoguin extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Ha iniciado sesión con Éxito");
                         if (tipoUser == "administrador") {                            
                             this.setVisible(false);
-                            GUIMenuAdministrador opcAdmin = new GUIMenuAdministrador();
-                            opcAdmin.LoginUsuario(txtUserLogin.getText());
+                            GUIMenuAdministrador opcAdmin = new GUIMenuAdministrador(txtUserLogin.getText());
                             opcAdmin.setVisible(true);
                             opcAdmin.pack();
                         }

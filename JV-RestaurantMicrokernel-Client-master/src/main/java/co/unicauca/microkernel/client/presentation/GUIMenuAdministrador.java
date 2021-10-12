@@ -19,16 +19,16 @@ public class GUIMenuAdministrador extends JFrame {
 
     UserRepository service;
     private String loginName;
+    
     /** Creates new form GUIRegistrarUsuario */
-    public GUIMenuAdministrador() {
+    public GUIMenuAdministrador(String login) {
         initComponents();
+        loginName = login;
         this.service = service;
         setLocationRelativeTo(null);
         
     }
-    public void LoginUsuario(String login) {
-        loginName = login;
-    } 
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -72,6 +72,11 @@ public class GUIMenuAdministrador extends JFrame {
         btn_editarMenuDia.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 18)); // NOI18N
         btn_editarMenuDia.setText(" Menú del día");
         btn_editarMenuDia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_editarMenuDia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_editarMenuDiaActionPerformed(evt);
+            }
+        });
         getContentPane().add(btn_editarMenuDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 230, -1));
 
         btn_agregarPlato.setBackground(new java.awt.Color(0, 0, 255));
@@ -136,6 +141,13 @@ public class GUIMenuAdministrador extends JFrame {
        this.dispose();
     }//GEN-LAST:event_btn_agregarPlatoActionPerformed
 
+    private void btn_editarMenuDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarMenuDiaActionPerformed
+        GUIMenuDia menu = new GUIMenuDia(loginName);
+        this.setVisible (false);        
+        menu.setVisible (true); 
+        this.dispose();
+    }//GEN-LAST:event_btn_editarMenuDiaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -164,12 +176,12 @@ public class GUIMenuAdministrador extends JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the form 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GUIMenuAdministrador().setVisible(true);
             }
-        });
+        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

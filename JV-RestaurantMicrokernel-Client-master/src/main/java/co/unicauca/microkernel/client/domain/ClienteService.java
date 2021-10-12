@@ -42,6 +42,9 @@ public class ClienteService {
     public String deleteDish(int prmPlateID) throws Exception{
         return this.service.deleteDish(prmPlateID);
     }    
+    public String findDish(String prmDishName)throws Exception{
+        return this.service.findDish(prmDishName);
+    }
     public List<Dish> findAllDish(String LoginAdmin)throws Exception{
         return this.service.findAllDish(LoginAdmin);
     }

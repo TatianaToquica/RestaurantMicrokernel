@@ -24,6 +24,7 @@ public interface IClienteAccess {
     
     public String createDish(Dish plate) throws Exception;
     public String deleteDish(int prmPlateID) throws Exception;    
+    public String findDish(String prmDishName)throws Exception;
     public List<Dish> findAllDish(String LoginAdmin)throws Exception;
     
     

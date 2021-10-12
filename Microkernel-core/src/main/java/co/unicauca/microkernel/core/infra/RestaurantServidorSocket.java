@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.unicauca.microkernel.core.infra;
 
 import co.unicauca.microkernel.common.entities.Component;
@@ -212,6 +207,9 @@ public class RestaurantServidorSocket implements Runnable{
                 if (protocolRequest.getAction().equals("postFindComponent")) {
                     sistemaFindComponent(protocolRequest);
                 }
+                if (protocolRequest.getAction().equals("postFindDish")) {
+                    sistemaFindDish(protocolRequest);
+                }
                                
                 
         }
@@ -270,6 +268,7 @@ public class RestaurantServidorSocket implements Runnable{
         plate.setDishDescription(protocolRequest.getParameters().get(2).getValue());
         plate.setDishPrice(Integer.parseInt(protocolRequest.getParameters().get(3).getValue()));
         plate.setDishImage(protocolRequest.getBytes());
+        plate.setUserLoginName(protocolRequest.getParameters().get(4).getValue());
         //hacer validacion para esta, es decir sobre el parseo del dato
         String response;
         //el servicio comunicara con la base de datos,
@@ -281,14 +280,14 @@ public class RestaurantServidorSocket implements Runnable{
     }
     private void administradorDeleteDish(Protocol protocolRequest) {
         //creo el id de la racion
-        int dishId;
+        String dishName;
         //se asignan los atributos de la instancia, segun los valores de los parametros
         //el orden debe ser exacto
-        dishId = (Integer.parseInt(protocolRequest.getParameters().get(0).getValue()));
+        dishName = (protocolRequest.getParameters().get(0).getValue());
         String response = null;
         //el servicio comunicara con la base de datos,
         //se pasa el plato creado, y servicio llamara al repositorio
-        response = serviceDish.deleteDish(dishId);
+        response = serviceDish.deleteDish(dishName);
         output.println(response);
     }
     private void sistemaRegistrarUser(Protocol protocolRequest) {
@@ -398,6 +397,18 @@ public class RestaurantServidorSocket implements Runnable{
         
         String response;
         response = serviceDish.findAllDish(LoginAdmin);
+        System.out.println("ServidorSocket: "+response);
+        output.println(response);
+    }
+
+    private void sistemaFindDish(Protocol protocolRequest) {
+        String prmDishName;
+        
+        prmDishName = (protocolRequest.getParameters().get(0).getValue());
+        String response = null;
+        //el servicio comunicara con la base de datos,
+        //se pasa el componente creado, y servicio llamara al repositorio
+        response = serviceDish.findDish(prmDishName);
         output.println(response);
     }
 

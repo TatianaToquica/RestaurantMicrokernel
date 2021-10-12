@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package co.unicauca.microkernel.client.presentation;
 
 import co.unicauca.microkernel.client.access.Factory;
@@ -51,19 +47,22 @@ public class GUIAgregarPlatoEspecial extends javax.swing.JFrame {
 
         try {
             List<Dish> plates = serviceRest.findAllDish(loginName);
-            DefaultTableModel modelTable = (DefaultTableModel) tblData.getModel();
+            System.out.println(loginName);
+            DefaultTableModel modelTable = (DefaultTableModel) tblDataPlato.getModel();
             clearData(modelTable);
-            for (Dish plate : plates) {
+            
+            for (Dish plato : plates) {
                 Object[] fila = new Object[5];
-                fila[0] = plate.getDishID();
-                fila[1] = plate.getDishName();
-                fila[2] = plate.getDishDescription();
-                fila[3] = plate.getDishPrice();
-                fila[4] = plate.getDishImage();
+                fila[0] = plato.getDishID();
+                System.out.println("plato " + plato.getDishID());
+                fila[1] = plato.getDishName();
+                fila[2] = plato.getDishDescription();
+                fila[3] = plato.getDishPrice();
+                fila[4] = plato.getDishImage();
                 modelTable.addRow(fila);
             }
         } catch (Exception ex) {
-            Logger.getLogger(GUIAgregarComponentes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GUIAgregarPlatoEspecial.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -95,7 +94,7 @@ public class GUIAgregarPlatoEspecial extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jProgressBar1 = new javax.swing.JProgressBar();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblData = new javax.swing.JTable();
+        tblDataPlato = new javax.swing.JTable();
         Btn_UpdateDish = new javax.swing.JButton();
         Btn_DeleteDish = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -181,7 +180,7 @@ public class GUIAgregarPlatoEspecial extends javax.swing.JFrame {
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 70));
         getContentPane().add(jProgressBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, -1));
 
-        tblData.setModel(new javax.swing.table.DefaultTableModel(
+        tblDataPlato.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -197,8 +196,8 @@ public class GUIAgregarPlatoEspecial extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblData.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        jScrollPane1.setViewportView(tblData);
+        tblDataPlato.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jScrollPane1.setViewportView(tblDataPlato);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, 520, 310));
 
@@ -225,7 +224,7 @@ public class GUIAgregarPlatoEspecial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
-        GUIMenuAdministrador guiAdmin = new GUIMenuAdministrador();
+        GUIMenuAdministrador guiAdmin = new GUIMenuAdministrador(loginName);
         this.setVisible(false);
         guiAdmin.setVisible(true);
         this.dispose();
@@ -234,7 +233,8 @@ public class GUIAgregarPlatoEspecial extends javax.swing.JFrame {
     private void btn_AgregarPlatoEspecialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AgregarPlatoEspecialActionPerformed
         boolean validarCampos=true;
         //si se escoge una foto se toma la direccion del archivo y se pasa a byte usando el metodo convertirFoto
-        if (!(this.txt_Ruta.getText().isBlank())) {
+        if (!(this.txt_Ruta.getText().isBlank()) && !(this.txt_IdPlato.getText().isBlank())
+            && !(this.txt_nomPlato.getText().isBlank()) && !(this.txt_descripPlato.getText().isBlank()) && !(this.txt_PricePlato.getText().isBlank())) {
             plate.setDishID(Integer.parseInt(txt_IdPlato.getText()));
             plate.setDishName(txt_nomPlato.getText());
             plate.setDishDescription(txt_descripPlato.getText());
@@ -243,7 +243,32 @@ public class GUIAgregarPlatoEspecial extends javax.swing.JFrame {
         } else {
             validarCampos = false;
         }
-
+        plate.setUserLoginName(loginName);
+        
+        String varName;
+        String PlatoCreado;
+        try {
+            varName = serviceRest.findDish(txt_nomPlato.getText());
+            if (varName != "Fallo") {
+                JOptionPane.showConfirmDialog(rootPane, "ES PROBABLE QUE ESTE PLATO YA ESTE REGISTRADO", "ERROR", JOptionPane.CLOSED_OPTION);
+            } else {
+                if (validarCampos) {
+                    PlatoCreado = serviceRest.createDish(plate);
+                    if (PlatoCreado != "Fallo crear Plato") {//Si no se presento inconveniente en su creación  
+                        loadDataTable();
+                        JOptionPane.showMessageDialog(null, "PLATO ESPECIAL AGREGADO CON EXITO!!!");
+                        clearControls();
+                        //JOptionPane.showConfirmDialog(rootPane, "COMPONENTE AGREGADO CON EXITO!!!", "OK", JOptionPane.CLOSED_OPTION);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "ERROR: Debe llenar todos los campos");
+                }                
+            }
+        } catch (Exception ex) {
+            JOptionPane.showConfirmDialog(rootPane, "ERROR FATAL, NO SE PUDO CUMPLIR LA PETICION, REVISE LOS DATOS DIGITADOS", "ERROR", JOptionPane.CLOSED_OPTION);
+            Logger.getLogger(GUIAgregarPlatoEspecial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        /**
         try {
             if (serviceRest.createDish(plate) != txt_nomPlato.getText()) {
                 JOptionPane.showConfirmDialog(rootPane, "ES PROBABLE QUE ESTE PLATO YA ESTE REGISTRADO", "ERROR", JOptionPane.CLOSED_OPTION);
@@ -255,7 +280,7 @@ public class GUIAgregarPlatoEspecial extends javax.swing.JFrame {
         } catch (Exception ex) {
             JOptionPane.showConfirmDialog(rootPane, "ERROR FATAL, NO SE PUDO CUMPLIR LA PETICION, REVISE LOS DATOS DIGITADOS", "ERROR", JOptionPane.CLOSED_OPTION);
             Logger.getLogger(GUIAgregarPlatoEspecial.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }//GEN-LAST:event_btn_AgregarPlatoEspecialActionPerformed
 
     private void btn_CargarImagenPlatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CargarImagenPlatoActionPerformed
@@ -338,7 +363,7 @@ public class GUIAgregarPlatoEspecial extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_NomComp;
     private javax.swing.JLabel lbl_PrecioComp;
     private javax.swing.JLabel lbl_TipoComp;
-    private javax.swing.JTable tblData;
+    private javax.swing.JTable tblDataPlato;
     private javax.swing.JTextField txt_IdPlato;
     private javax.swing.JTextField txt_PricePlato;
     private javax.swing.JTextField txt_Ruta;

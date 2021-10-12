@@ -24,14 +24,14 @@ public interface IDishRepository {
      * @param prmplatoID identificador del plato
      * @return respuesta de exito o fracaso sobre la operacion
      */
-    public String deleteDish(int prmplatoID);
+    public String deleteDish(String prmDishName);
     /**
      * Actualiza la información de un plato
      * @param prmObjPlato Plato a modificar
      * @return nombre del plato que fue actualizado
      */
     public String updateDish(Dish prmObjPlato);
-    
+    public String findDish(String prmDishName);
     /**
      * Encuentra todos los platos      
      * @return cadena de todos los platos

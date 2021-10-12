@@ -273,10 +273,10 @@ public class GUIAgregarComponentes extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_CargarImagenCompActionPerformed
 
     private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
-        GUIMenuAdministrador guiAdmin = new GUIMenuAdministrador();
+        GUIMenuAdministrador guiAdmin = new GUIMenuAdministrador(loginName);
         this.setVisible(false);
         guiAdmin.setVisible(true);
-        this.dispose();
+        //this.dispose();
     }//GEN-LAST:event_btn_salirActionPerformed
     /**
      * Limpia las cajas de texto
